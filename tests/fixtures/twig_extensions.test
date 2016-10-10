@@ -1,0 +1,18 @@
+--TEST--
+"extensions" filter
+--TEMPLATE--
+{{ test|bin2hex }}
+{{ test1|bin2hex }}
+{{ test2|slug }}
+{{ test2|slug(false, '_') }}
+{{ test1|md5 }}
+{{ test3|slug }}
+--DATA--
+return array('test' => 'test', 'test1' => 'veryveryveryveryveryveryveryverylongstring', 'test2' => 'Hello World', 'test3' => 'T$34gdfg34$$%^')
+--EXPECT--
+74657374
+76657279766572797665727976657279766572797665727976657279766572796c6f6e67737472696e67
+hello-world
+Hello_World
+b019b90f247074d7ba8655f6718e99b4
+t34gdfg34

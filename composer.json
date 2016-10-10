@@ -1,0 +1,32 @@
+{
+  "name": "ideasbucket/common",
+  "type": "ideasbucket-common-package",
+  "description": "IdeasBucket Common Package",
+  "keywords": ["utility"],
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/nicholasnet/common/issues",
+    "source": "https://github.com/nicholasnet/common"
+  },
+  "require": {
+    "php": ">=5.6.0",
+    "ext-mbstring": "*",
+    "ext-openssl": "*",
+    "paragonie/random_compat": "~1.4|~2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.5.2",
+    "twig/twig": "~1.0",
+    "swiftmailer/swiftmailer": "^5.4",
+    "aws/aws-sdk-php": "~3.0",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "autoload": {
+    "psr-4": { "IdeasBucket\\Common\\": "src" }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
+    }
+  }
+}
