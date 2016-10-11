@@ -199,13 +199,6 @@ class Encrypter implements EncrypterInterface
     protected function validMac(array $payload)
     {
         $bytes = $this->getRandomBytes();
-
-        if ($bytes === false) {
-
-            return false;
-
-        }
-
         $calcMac = hash_hmac('sha256', $this->hash($payload['iv'], $payload['value']), $bytes, true);
 
         return hash_equals(hash_hmac('sha256', $payload['mac'], $bytes, true), $calcMac);
@@ -224,7 +217,23 @@ class Encrypter implements EncrypterInterface
 
         }
 
-        return false;
+        if (function_exists('openssl_random_pseudo_bytes')) {
+
+            $bytes = openssl_random_pseudo_bytes($length, $strongSource);
+
+            if (!$strongSource) {
+
+                throw new EncryptException('openssl was unable to use a strong source of entropy. ' .
+                    'Consider updating your system libraries, or ensuring ' .
+                    'you have more available entropy.');
+
+            }
+
+            return $bytes;
+        }
+
+        throw new EncryptException('You do not have a safe source of random data available. ' .
+            'Install either the openssl extension, or paragonie/random_compat.');
     }
 
     /**
