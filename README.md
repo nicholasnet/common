@@ -1,6 +1,7 @@
 # Common Packages 
 
-[![Build Status](https://travis-ci.org/nicholasnet/common.svg)](https://travis-ci.org/nicholasnet/common)
+[![Build Status](https://travis-ci.org/nicholasnet/common.svg)](https://travis-ci.org/nicholasnet/common) [![codecov](https://codecov.io/gh/nicholasnet/common/branch/master/graph/badge.svg)](https://codecov.io/gh/nicholasnet/common)
+
 
 Common utility that can be used in any PHP applications using any framework. This library consists packages that are used in frameworks like
  * Laravel
