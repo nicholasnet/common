@@ -5,6 +5,7 @@ filter:
 checks:
     php:
         code_rating: true
+        duplication: false
 tools:
     php_sim: false
     php_cpd: false

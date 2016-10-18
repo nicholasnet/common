@@ -24,8 +24,8 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
     public function testUuidGeneration()
     {
         $result = StringHelper::uuid();
-        $pattern = "/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/";
-        $match = (bool)preg_match($pattern, $result);
+        $pattern = '/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/';
+        $match = (bool) preg_match($pattern, $result);
         $this->assertTrue($match);
     }
 

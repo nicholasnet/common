@@ -2,17 +2,14 @@
 
 namespace IdeasBucket\Common\Swiftmailer\Transport;
 
-use Swift_Transport;
-use Swift_Mime_Message;
-use Swift_Events_SendEvent;
 use Swift_Events_EventListener;
+use Swift_Events_SendEvent;
+use Swift_Mime_Message;
+use Swift_Transport;
 
 /**
- * Class AbstractTransport
+ * Class AbstractTransport.
  *
- * @package IdeasBucket\Common\Swiftmailer\Transport
- *
- * Note: Adapted from Laravel Framework.
  * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 abstract class AbstractTransport implements Swift_Transport
@@ -51,7 +48,8 @@ abstract class AbstractTransport implements Swift_Transport
     /**
      * Register a plug-in with the transport.
      *
-     * @param  \Swift_Events_EventListener  $plugin
+     * @param \Swift_Events_EventListener $plugin
+     *
      * @return void
      */
     public function registerPlugin(Swift_Events_EventListener $plugin)
@@ -62,7 +60,8 @@ abstract class AbstractTransport implements Swift_Transport
     /**
      * Iterate through registered plugins and execute plugins' methods.
      *
-     * @param  \Swift_Mime_Message  $message
+     * @param \Swift_Mime_Message $message
+     *
      * @return void
      */
     protected function beforeSendPerformed(Swift_Mime_Message $message)
@@ -70,11 +69,8 @@ abstract class AbstractTransport implements Swift_Transport
         $event = new Swift_Events_SendEvent($this, $message);
 
         foreach ($this->plugins as $plugin) {
-
             if (method_exists($plugin, 'beforeSendPerformed')) {
-
                 $plugin->beforeSendPerformed($event);
-
             }
         }
     }
@@ -82,7 +78,8 @@ abstract class AbstractTransport implements Swift_Transport
     /**
      * Get the number of recipients.
      *
-     * @param  \Swift_Mime_Message  $message
+     * @param \Swift_Mime_Message $message
+     *
      * @return int
      */
     protected function numberOfRecipients(Swift_Mime_Message $message)

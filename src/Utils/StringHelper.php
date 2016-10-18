@@ -3,9 +3,7 @@
 namespace IdeasBucket\Common\Utils;
 
 /**
- * Class StringHelper
- *
- * @package IdeasBucket\Common
+ * Class StringHelper.
  */
 class StringHelper
 {
@@ -36,6 +34,7 @@ class StringHelper
      * Generate a URL friendly "slug" from a given string.
      *
      * Note: Adapted from Laravel Framework.
+     *
      * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
      *
      * @param string $title
@@ -55,13 +54,9 @@ class StringHelper
 
         // Remove all characters that are not the separator, letters, numbers, or whitespace.
         if ($convertCase) {
-
             $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($title));
-
         } else {
-
             $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', $title);
-
         }
 
 
@@ -76,11 +71,12 @@ class StringHelper
      * This method ensures the string is treated as a byte array by using `mb_strlen()`.
      *
      * Note: Adapted from YII2 framework
+     *
      * @see https://github.com/yiisoft/yii2/blob/master/LICENSE.md
      *
      * @param string $string The string being measured for length
      *
-     * @return integer the number of bytes in the given string.
+     * @return int the number of bytes in the given string.
      */
     public static function length($string)
     {
@@ -91,19 +87,19 @@ class StringHelper
      * Limit the number of characters in a string.
      *
      * Note: Adapted from Laravel Framework.
+     *
      * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
      *
-     * @param  string  $value
-     * @param  int     $limit
-     * @param  string  $end
+     * @param string $value
+     * @param int    $limit
+     * @param string $end
+     *
      * @return string
      */
     public static function truncate($value, $limit = 100, $end = '...')
     {
         if (mb_strwidth($value, 'UTF-8') <= $limit) {
-
             return $value;
-
         }
 
         return rtrim(mb_strimwidth($value, 0, $limit, '', 'UTF-8')).$end;
@@ -114,12 +110,13 @@ class StringHelper
      * This method ensures the string is treated as a byte array by using `mb_substr()`.
      *
      * Note: Adapted from YII2 framework
+     *
      * @see https://github.com/yiisoft/yii2/blob/master/LICENSE.md
      *
-     * @param string  $string The input string. Must be one character or longer.
-     * @param integer $start  The starting position
-     * @param integer $length The desired portion length. If not specified or `null`, there will be
-     *                        no limit on length i.e. the output will be until the end of the string.
+     * @param string $string The input string. Must be one character or longer.
+     * @param int    $start  The starting position
+     * @param int    $length The desired portion length. If not specified or `null`, there will be
+     *                       no limit on length i.e. the output will be until the end of the string.
      *
      * @return string the extracted part of string, or FALSE on failure or an empty string.
      *
@@ -134,18 +131,17 @@ class StringHelper
      * Transliterate a UTF-8 value to ASCII. Converts latin characters only and removes the rest.
      *
      * Note: Adapted from Laravel Framework.
+     *
      * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return string
      */
     public static function ascii($value)
     {
         foreach (static::charsArray() as $key => $val) {
-
             $value = str_replace($val, $key, $value);
-
         }
 
         return preg_replace('/[^\x20-\x7E]/u', '', $value);
@@ -155,30 +151,29 @@ class StringHelper
      * Converts number to its ordinal English form. For example, converts 13 to 13th, 2 to 2nd ...
      *
      * Note: Adapted from YII2 framework
+     *
      * @see https://github.com/yiisoft/yii2/blob/master/LICENSE.md
      *
-     * @param integer $number the number to get its ordinal value
+     * @param int $number the number to get its ordinal value
      *
      * @return string
      */
     public static function ordinalize($number)
     {
         if (in_array($number % 100, range(11, 13))) {
-
-            return $number . 'th';
-
+            return $number.'th';
         }
 
         switch ($number % 10) {
 
             case 1:
-                return $number . 'st';
+                return $number.'st';
             case 2:
-                return $number . 'nd';
+                return $number.'nd';
             case 3:
-                return $number . 'rd';
+                return $number.'rd';
             default:
-                return $number . 'th';
+                return $number.'th';
 
         }
     }
@@ -187,6 +182,7 @@ class StringHelper
      * Convert a value to camel case.
      *
      * Note: Adapted from Laravel Framework.
+     *
      * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
      *
      * @param string $word the word to CamelCase
@@ -196,9 +192,7 @@ class StringHelper
     public static function camelCase($word)
     {
         if (isset(static::$camelCache[$word])) {
-
             return static::$camelCache[$word];
-
         }
 
         return static::$camelCache[$word] = lcfirst(static::studlyCase($word));
@@ -208,6 +202,7 @@ class StringHelper
      * Convert a value to studly caps case.
      *
      * Note: Adapted from Laravel Framework.
+     *
      * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
      *
      * @param string $value
@@ -219,9 +214,7 @@ class StringHelper
         $key = $value;
 
         if (isset(static::$studlyCache[$key])) {
-
             return static::$studlyCache[$key];
-
         }
 
         $value = ucwords(str_replace(['-', '_'], ' ', $value));
@@ -233,21 +226,19 @@ class StringHelper
      * Determine if a given string ends with a given substring.
      *
      * Note: Adapted from Laravel Framework.
+     *
      * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
      *
-     * @param  string       $haystack
-     * @param  string|array $needles
+     * @param string       $haystack
+     * @param string|array $needles
      *
      * @return bool
      */
     public static function endsWith($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
-
             if (substr($haystack, -strlen($needle)) === (string) $needle) {
-
                 return true;
-
             }
         }
 
@@ -258,21 +249,19 @@ class StringHelper
      * Determine if a given string starts with a given substring.
      *
      * Note: Adapted from Laravel Framework.
+     *
      * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
      *
-     * @param  string       $haystack
-     * @param  string|array $needles
+     * @param string       $haystack
+     * @param string|array $needles
      *
      * @return bool
      */
     public static function startsWith($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
-
             if ($needle != '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
-
                 return true;
-
             }
         }
 
@@ -280,7 +269,7 @@ class StringHelper
     }
 
     /**
-     * Generate a random UUID version 4
+     * Generate a random UUID version 4.
      *
      * Warning: This method should not be used as a random seed for any cryptographic operations.
      * Instead you should use the openssl or mcrypt extensions.
@@ -317,6 +306,7 @@ class StringHelper
      * Returns the replacements for the ascii method.
      *
      * Note: Adapted from Stringy\Stringy.
+     *
      * @see https://github.com/danielstjules/Stringy/blob/2.3.1/LICENSE.txt
      *
      * @return array
@@ -326,9 +316,7 @@ class StringHelper
         static $charsArray;
 
         if (isset($charsArray)) {
-
             return $charsArray;
-
         }
 
         return $charsArray = [
@@ -347,15 +335,15 @@ class StringHelper
                 'α', 'ά', 'ἀ', 'ἁ', 'ἂ', 'ἃ', 'ἄ', 'ἅ', 'ἆ', 'ἇ',
                 'ᾀ', 'ᾁ', 'ᾂ', 'ᾃ', 'ᾄ', 'ᾅ', 'ᾆ', 'ᾇ', 'ὰ', 'ά',
                 'ᾰ', 'ᾱ', 'ᾲ', 'ᾳ', 'ᾴ', 'ᾶ', 'ᾷ', 'а', 'أ', 'အ',
-                'ာ', 'ါ', 'ǻ', 'ǎ', 'ª', 'ა', 'अ', 'ا'],
+                'ာ', 'ါ', 'ǻ', 'ǎ', 'ª', 'ა', 'अ', 'ا', ],
             'b'    => ['б', 'β', 'Ъ', 'Ь', 'ب', 'ဗ', 'ბ'],
             'c'    => ['ç', 'ć', 'č', 'ĉ', 'ċ'],
             'd'    => ['ď', 'ð', 'đ', 'ƌ', 'ȡ', 'ɖ', 'ɗ', 'ᵭ', 'ᶁ', 'ᶑ',
-                'д', 'δ', 'د', 'ض', 'ဍ', 'ဒ', 'დ'],
+                'д', 'δ', 'د', 'ض', 'ဍ', 'ဒ', 'დ', ],
             'e'    => ['é', 'è', 'ẻ', 'ẽ', 'ẹ', 'ê', 'ế', 'ề', 'ể', 'ễ',
                 'ệ', 'ë', 'ē', 'ę', 'ě', 'ĕ', 'ė', 'ε', 'έ', 'ἐ',
                 'ἑ', 'ἒ', 'ἓ', 'ἔ', 'ἕ', 'ὲ', 'έ', 'е', 'ё', 'э',
-                'є', 'ə', 'ဧ', 'ေ', 'ဲ', 'ე', 'ए', 'إ', 'ئ'],
+                'є', 'ə', 'ဧ', 'ေ', 'ဲ', 'ე', 'ए', 'إ', 'ئ', ],
             'f'    => ['ф', 'φ', 'ف', 'ƒ', 'ფ'],
             'g'    => ['ĝ', 'ğ', 'ġ', 'ģ', 'г', 'ґ', 'γ', 'ဂ', 'გ', 'گ'],
             'h'    => ['ĥ', 'ħ', 'η', 'ή', 'ح', 'ه', 'ဟ', 'ှ', 'ჰ'],
@@ -363,33 +351,33 @@ class StringHelper
                 'ı', 'ι', 'ί', 'ϊ', 'ΐ', 'ἰ', 'ἱ', 'ἲ', 'ἳ', 'ἴ',
                 'ἵ', 'ἶ', 'ἷ', 'ὶ', 'ί', 'ῐ', 'ῑ', 'ῒ', 'ΐ', 'ῖ',
                 'ῗ', 'і', 'ї', 'и', 'ဣ', 'ိ', 'ီ', 'ည်', 'ǐ', 'ი',
-                'इ', 'ی'],
+                'इ', 'ی', ],
             'j'    => ['ĵ', 'ј', 'Ј', 'ჯ', 'ج'],
             'k'    => ['ķ', 'ĸ', 'к', 'κ', 'Ķ', 'ق', 'ك', 'က', 'კ', 'ქ',
-                'ک'],
+                'ک', ],
             'l'    => ['ł', 'ľ', 'ĺ', 'ļ', 'ŀ', 'л', 'λ', 'ل', 'လ', 'ლ'],
             'm'    => ['м', 'μ', 'م', 'မ', 'მ'],
             'n'    => ['ñ', 'ń', 'ň', 'ņ', 'ŉ', 'ŋ', 'ν', 'н', 'ن', 'န',
-                'ნ'],
+                'ნ', ],
             'o'    => ['ó', 'ò', 'ỏ', 'õ', 'ọ', 'ô', 'ố', 'ồ', 'ổ', 'ỗ',
                 'ộ', 'ơ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ', 'ø', 'ō', 'ő',
                 'ŏ', 'ο', 'ὀ', 'ὁ', 'ὂ', 'ὃ', 'ὄ', 'ὅ', 'ὸ', 'ό',
-                'о', 'و', 'θ', 'ို', 'ǒ', 'ǿ', 'º', 'ო', 'ओ'],
+                'о', 'و', 'θ', 'ို', 'ǒ', 'ǿ', 'º', 'ო', 'ओ', ],
             'p'    => ['п', 'π', 'ပ', 'პ', 'پ'],
             'q'    => ['ყ'],
             'r'    => ['ŕ', 'ř', 'ŗ', 'р', 'ρ', 'ر', 'რ'],
             's'    => ['ś', 'š', 'ş', 'с', 'σ', 'ș', 'ς', 'س', 'ص', 'စ',
-                'ſ', 'ს'],
+                'ſ', 'ს', ],
             't'    => ['ť', 'ţ', 'т', 'τ', 'ț', 'ت', 'ط', 'ဋ', 'တ', 'ŧ',
-                'თ', 'ტ'],
+                'თ', 'ტ', ],
             'u'    => ['ú', 'ù', 'ủ', 'ũ', 'ụ', 'ư', 'ứ', 'ừ', 'ử', 'ữ',
                 'ự', 'û', 'ū', 'ů', 'ű', 'ŭ', 'ų', 'µ', 'у', 'ဉ',
-                'ု', 'ူ', 'ǔ', 'ǖ', 'ǘ', 'ǚ', 'ǜ', 'უ', 'उ'],
+                'ု', 'ူ', 'ǔ', 'ǖ', 'ǘ', 'ǚ', 'ǜ', 'უ', 'उ', ],
             'v'    => ['в', 'ვ', 'ϐ'],
             'w'    => ['ŵ', 'ω', 'ώ', 'ဝ', 'ွ'],
             'x'    => ['χ', 'ξ'],
             'y'    => ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ', 'ÿ', 'ŷ', 'й', 'ы', 'υ',
-                'ϋ', 'ύ', 'ΰ', 'ي', 'ယ'],
+                'ϋ', 'ύ', 'ΰ', 'ي', 'ယ', ],
             'z'    => ['ź', 'ž', 'ż', 'з', 'ζ', 'ز', 'ဇ', 'ზ'],
             'aa'   => ['ع', 'आ', 'آ'],
             'ae'   => ['ä', 'æ', 'ǽ'],
@@ -425,20 +413,20 @@ class StringHelper
                 'Ặ', 'Â', 'Ấ', 'Ầ', 'Ẩ', 'Ẫ', 'Ậ', 'Å', 'Ā', 'Ą',
                 'Α', 'Ά', 'Ἀ', 'Ἁ', 'Ἂ', 'Ἃ', 'Ἄ', 'Ἅ', 'Ἆ', 'Ἇ',
                 'ᾈ', 'ᾉ', 'ᾊ', 'ᾋ', 'ᾌ', 'ᾍ', 'ᾎ', 'ᾏ', 'Ᾰ', 'Ᾱ',
-                'Ὰ', 'Ά', 'ᾼ', 'А', 'Ǻ', 'Ǎ'],
+                'Ὰ', 'Ά', 'ᾼ', 'А', 'Ǻ', 'Ǎ', ],
             'B'    => ['Б', 'Β', 'ब'],
             'C'    => ['Ç', 'Ć', 'Č', 'Ĉ', 'Ċ'],
             'D'    => ['Ď', 'Ð', 'Đ', 'Ɖ', 'Ɗ', 'Ƌ', 'ᴅ', 'ᴆ', 'Д', 'Δ'],
             'E'    => ['É', 'È', 'Ẻ', 'Ẽ', 'Ẹ', 'Ê', 'Ế', 'Ề', 'Ể', 'Ễ',
                 'Ệ', 'Ë', 'Ē', 'Ę', 'Ě', 'Ĕ', 'Ė', 'Ε', 'Έ', 'Ἐ',
                 'Ἑ', 'Ἒ', 'Ἓ', 'Ἔ', 'Ἕ', 'Έ', 'Ὲ', 'Е', 'Ё', 'Э',
-                'Є', 'Ə'],
+                'Є', 'Ə', ],
             'F'    => ['Ф', 'Φ'],
             'G'    => ['Ğ', 'Ġ', 'Ģ', 'Г', 'Ґ', 'Γ'],
             'H'    => ['Η', 'Ή', 'Ħ'],
             'I'    => ['Í', 'Ì', 'Ỉ', 'Ĩ', 'Ị', 'Î', 'Ï', 'Ī', 'Ĭ', 'Į',
                 'İ', 'Ι', 'Ί', 'Ϊ', 'Ἰ', 'Ἱ', 'Ἳ', 'Ἴ', 'Ἵ', 'Ἶ',
-                'Ἷ', 'Ῐ', 'Ῑ', 'Ὶ', 'Ί', 'И', 'І', 'Ї', 'Ǐ', 'ϒ'],
+                'Ἷ', 'Ῐ', 'Ῑ', 'Ὶ', 'Ί', 'И', 'І', 'Ї', 'Ǐ', 'ϒ', ],
             'K'    => ['К', 'Κ'],
             'L'    => ['Ĺ', 'Ł', 'Л', 'Λ', 'Ļ', 'Ľ', 'Ŀ', 'ल'],
             'M'    => ['М', 'Μ'],
@@ -446,19 +434,19 @@ class StringHelper
             'O'    => ['Ó', 'Ò', 'Ỏ', 'Õ', 'Ọ', 'Ô', 'Ố', 'Ồ', 'Ổ', 'Ỗ',
                 'Ộ', 'Ơ', 'Ớ', 'Ờ', 'Ở', 'Ỡ', 'Ợ', 'Ø', 'Ō', 'Ő',
                 'Ŏ', 'Ο', 'Ό', 'Ὀ', 'Ὁ', 'Ὂ', 'Ὃ', 'Ὄ', 'Ὅ', 'Ὸ',
-                'Ό', 'О', 'Θ', 'Ө', 'Ǒ', 'Ǿ'],
+                'Ό', 'О', 'Θ', 'Ө', 'Ǒ', 'Ǿ', ],
             'P'    => ['П', 'Π'],
             'R'    => ['Ř', 'Ŕ', 'Р', 'Ρ', 'Ŗ'],
             'S'    => ['Ş', 'Ŝ', 'Ș', 'Š', 'Ś', 'С', 'Σ'],
             'T'    => ['Ť', 'Ţ', 'Ŧ', 'Ț', 'Т', 'Τ'],
             'U'    => ['Ú', 'Ù', 'Ủ', 'Ũ', 'Ụ', 'Ư', 'Ứ', 'Ừ', 'Ử', 'Ữ',
                 'Ự', 'Û', 'Ū', 'Ů', 'Ű', 'Ŭ', 'Ų', 'У', 'Ǔ', 'Ǖ',
-                'Ǘ', 'Ǚ', 'Ǜ'],
+                'Ǘ', 'Ǚ', 'Ǜ', ],
             'V'    => ['В'],
             'W'    => ['Ω', 'Ώ', 'Ŵ'],
             'X'    => ['Χ', 'Ξ'],
             'Y'    => ['Ý', 'Ỳ', 'Ỷ', 'Ỹ', 'Ỵ', 'Ÿ', 'Ῠ', 'Ῡ', 'Ὺ', 'Ύ',
-                'Ы', 'Й', 'Υ', 'Ϋ', 'Ŷ'],
+                'Ы', 'Й', 'Υ', 'Ϋ', 'Ŷ', ],
             'Z'    => ['Ź', 'Ž', 'Ż', 'З', 'Ζ'],
             'AE'   => ['Ä', 'Æ', 'Ǽ'],
             'CH'   => ['Ч'],
@@ -486,7 +474,7 @@ class StringHelper
                 "\xE2\x80\x82", "\xE2\x80\x83", "\xE2\x80\x84",
                 "\xE2\x80\x85", "\xE2\x80\x86", "\xE2\x80\x87",
                 "\xE2\x80\x88", "\xE2\x80\x89", "\xE2\x80\x8A",
-                "\xE2\x80\xAF", "\xE2\x81\x9F", "\xE3\x80\x80"],
+                "\xE2\x80\xAF", "\xE2\x81\x9F", "\xE3\x80\x80", ],
         ];
     }
 }

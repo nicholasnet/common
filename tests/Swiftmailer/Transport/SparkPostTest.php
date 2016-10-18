@@ -36,13 +36,13 @@ class SparkPostTest extends \PHPUnit_Framework_TestCase
                         'recipients' => [
                             ['address' => 'me@example.com'],
                             ['address' => 'me@example.com'],
-                            ['address' => 'me@example.com']
+                            ['address' => 'me@example.com'],
                         ],
                         'content'    => [
                             'email_rfc822' => $expected,
                         ],
                         'campaign_id' => 'test',
-                        'description' => 'test'
+                        'description' => 'test',
                     ],
                 ]));
 

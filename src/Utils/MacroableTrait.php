@@ -3,10 +3,8 @@
 namespace IdeasBucket\Common\Utils;
 
 /**
- * Class Macroable
- * @package IdeasBucket\Common
+ * Class Macroable.
  *
- * Note: Adapted from Laravel Framework.
  * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 trait MacroableTrait
@@ -21,8 +19,8 @@ trait MacroableTrait
     /**
      * Register a custom macro.
      *
-     * @param  string $name
-     * @param  callable $macro
+     * @param string   $name
+     * @param callable $macro
      *
      * @return void
      */
@@ -34,7 +32,7 @@ trait MacroableTrait
     /**
      * Checks if macro is registered.
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return bool
      */
@@ -46,25 +44,21 @@ trait MacroableTrait
     /**
      * Dynamically handle calls to the class.
      *
-     * @param  string $method
-     * @param  array $parameters
-     *
-     * @return mixed
+     * @param string $method
+     * @param array  $parameters
      *
      * @throws \BadMethodCallException
+     *
+     * @return mixed
      */
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-
             throw new \BadMethodCallException("Method {$method} does not exist.");
-
         }
 
         if (static::$macros[$method] instanceof \Closure) {
-
             return call_user_func_array(\Closure::bind(static::$macros[$method], null, static::class), $parameters);
-
         }
 
         return call_user_func_array(static::$macros[$method], $parameters);
@@ -73,25 +67,21 @@ trait MacroableTrait
     /**
      * Dynamically handle calls to the class.
      *
-     * @param  string $method
-     * @param  array $parameters
-     *
-     * @return mixed
+     * @param string $method
+     * @param array  $parameters
      *
      * @throws \BadMethodCallException
+     *
+     * @return mixed
      */
     public function __call($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-
             throw new \BadMethodCallException("Method {$method} does not exist.");
-
         }
 
         if (static::$macros[$method] instanceof \Closure) {
-
             return call_user_func_array(static::$macros[$method]->bindTo($this, static::class), $parameters);
-
         }
 
         return call_user_func_array(static::$macros[$method], $parameters);

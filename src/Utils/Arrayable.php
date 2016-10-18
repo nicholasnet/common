@@ -3,12 +3,11 @@
 namespace IdeasBucket\Common\Utils;
 
 /**
- * Interface Arrayable
+ * Interface Arrayable.
  *
  * Note: Adapted from Laravel Framework.
- * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  *
- * @package IdeasBucket\Common\Utils
+ * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 interface Arrayable
 {
