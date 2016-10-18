@@ -2,16 +2,13 @@
 
 namespace IdeasBucket\Common\Swiftmailer\Transport;
 
+use GuzzleHttp\ClientInterface;
 use IdeasBucket\Common\Swiftmailer\Message\TrackedMessage;
 use Swift_Mime_Message;
-use GuzzleHttp\ClientInterface;
 
 /**
- * Class SparkPost
+ * Class SparkPost.
  *
- * @package IdeasBucket\Common\Swiftmailer\Transport
- *
- * Note: Adapted from Laravel Framework.
  * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 class SparkPost extends AbstractTransport
@@ -40,9 +37,9 @@ class SparkPost extends AbstractTransport
     /**
      * Create a new SparkPost transport instance.
      *
-     * @param  ClientInterface $client
-     * @param  string          $key
-     * @param  array           $options
+     * @param ClientInterface $client
+     * @param string          $key
+     * @param array           $options
      */
     public function __construct(ClientInterface $client, $key, $options = [])
     {
@@ -75,26 +72,19 @@ class SparkPost extends AbstractTransport
         ];
 
         if (!empty($this->options)) {
-
             $options['json']['options'] = $this->options;
-
         }
 
         if ($message instanceof TrackedMessage) {
-
             $campaignId = $message->getCampaignId();
             $description = $message->getDescription();
 
             if (!empty($campaignId)) {
-
                 $options['json']['campaign_id'] = $campaignId;
-
             }
 
             if (!empty($description)) {
-
                 $options['json']['description'] = $description;
-
             }
         }
 
@@ -108,7 +98,7 @@ class SparkPost extends AbstractTransport
      *
      * Note that SparkPost still respects CC, BCC headers in raw message itself.
      *
-     * @param  \Swift_Mime_Message $message
+     * @param \Swift_Mime_Message $message
      *
      * @return array
      */
@@ -117,27 +107,19 @@ class SparkPost extends AbstractTransport
         $to = [];
 
         if ($message->getTo()) {
-
             $to = array_merge($to, array_keys($message->getTo()));
-
         }
 
         if ($message->getCc()) {
-
             $to = array_merge($to, array_keys($message->getCc()));
-
         }
 
         if ($message->getBcc()) {
-
             $to = array_merge($to, array_keys($message->getBcc()));
-
         }
 
         $recipients = array_map(function ($address) {
-
             return compact('address');
-
         }, $to);
 
         return $recipients;
@@ -156,7 +138,7 @@ class SparkPost extends AbstractTransport
     /**
      * Set the API key being used by the transport.
      *
-     * @param  string $key
+     * @param string $key
      *
      * @return string
      */

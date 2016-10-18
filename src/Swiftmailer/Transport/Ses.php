@@ -6,11 +6,8 @@ use Aws\Ses\SesClient;
 use Swift_Mime_Message;
 
 /**
- * Class Ses
+ * Class Ses.
  *
- * @package IdeasBucket\Common\Swiftmailer\Transport
- *
- * Note: Adapted from Laravel Framework.
  * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 class Ses extends AbstractTransport
@@ -25,7 +22,7 @@ class Ses extends AbstractTransport
     /**
      * Create a new SES transport instance.
      *
-     * @param  SesClient  $ses
+     * @param SesClient $ses
      */
     public function __construct(SesClient $ses)
     {
@@ -40,7 +37,7 @@ class Ses extends AbstractTransport
         $this->beforeSendPerformed($message);
 
         $this->ses->sendRawEmail([
-            'Source' => key($message->getSender() ?: $message->getFrom()),
+            'Source'     => key($message->getSender() ?: $message->getFrom()),
             'RawMessage' => [
                 'Data' => $message->toString(),
             ],

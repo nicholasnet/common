@@ -3,12 +3,11 @@
 namespace IdeasBucket\Common\Utils;
 
 /**
- * Class ArrayHelper
+ * Class ArrayHelper.
  *
  * Note: Adapted from Laravel Framework.
- * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  *
- * @package IdeasBucket\Common\Utils
+ * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 class ArrayHelper
 {
@@ -17,7 +16,7 @@ class ArrayHelper
     /**
      * Determine whether the given value is array accessible.
      *
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -29,18 +28,16 @@ class ArrayHelper
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
-     * @param  array  $array
-     * @param  string $key
-     * @param  mixed  $value
+     * @param array  $array
+     * @param string $key
+     * @param mixed  $value
      *
      * @return array
      */
     public static function add($array, $key, $value)
     {
         if (is_null(static::get($array, $key))) {
-
             static::set($array, $key, $value);
-
         }
 
         return $array;
@@ -49,7 +46,7 @@ class ArrayHelper
     /**
      * Collapse an array of arrays into a single array.
      *
-     * @param  array $array
+     * @param array $array
      *
      * @return array
      */
@@ -58,15 +55,10 @@ class ArrayHelper
         $results = [];
 
         foreach ($array as $values) {
-
             if ($values instanceof Collection) {
-
                 $values = $values->all();
-
             } elseif (!is_array($values)) {
-
                 continue;
-
             }
 
             $results = array_merge($results, $values);
@@ -78,7 +70,7 @@ class ArrayHelper
     /**
      * Divide an array into two arrays. One with keys and the other with values.
      *
-     * @param  array $array
+     * @param array $array
      *
      * @return array
      */
@@ -90,8 +82,8 @@ class ArrayHelper
     /**
      * Flatten a multi-dimensional associative array with dots.
      *
-     * @param  array  $array
-     * @param  string $prepend
+     * @param array  $array
+     * @param string $prepend
      *
      * @return array
      */
@@ -100,15 +92,10 @@ class ArrayHelper
         $results = [];
 
         foreach ($array as $key => $value) {
-
             if (is_array($value) && !empty($value)) {
-
-                $results = array_merge($results, static::dot($value, $prepend . $key . '.'));
-
+                $results = array_merge($results, static::dot($value, $prepend.$key.'.'));
             } else {
-
-                $results[$prepend . $key] = $value;
-
+                $results[$prepend.$key] = $value;
             }
         }
 
@@ -118,8 +105,8 @@ class ArrayHelper
     /**
      * Get all of the given array except for a specified array of items.
      *
-     * @param  array        $array
-     * @param  array|string $keys
+     * @param array        $array
+     * @param array|string $keys
      *
      * @return array
      */
@@ -133,17 +120,15 @@ class ArrayHelper
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param  \ArrayAccess|array $array
-     * @param  string|int         $key
+     * @param \ArrayAccess|array $array
+     * @param string|int         $key
      *
      * @return bool
      */
     public static function exists($array, $key)
     {
         if ($array instanceof \ArrayAccess) {
-
             return $array->offsetExists($key);
-
         }
 
         return array_key_exists($key, $array);
@@ -152,35 +137,27 @@ class ArrayHelper
     /**
      * Return the first element in an array passing a given truth test.
      *
-     * @param  array         $array
-     * @param  callable|null $callback
-     * @param  mixed         $default
+     * @param array         $array
+     * @param callable|null $callback
+     * @param mixed         $default
      *
      * @return mixed
      */
     public static function first($array, callable $callback = null, $default = null)
     {
         if (is_null($callback)) {
-
             if (empty($array)) {
-
                 return static::value($default);
-
             }
 
             foreach ($array as $item) {
-
                 return $item;
-
             }
         }
 
         foreach ($array as $key => $value) {
-
             if (call_user_func($callback, $value, $key)) {
-
                 return $value;
-
             }
         }
 
@@ -190,18 +167,16 @@ class ArrayHelper
     /**
      * Return the last element in an array passing a given truth test.
      *
-     * @param  array         $array
-     * @param  callable|null $callback
-     * @param  mixed         $default
+     * @param array         $array
+     * @param callable|null $callback
+     * @param mixed         $default
      *
      * @return mixed
      */
     public static function last($array, callable $callback = null, $default = null)
     {
         if (is_null($callback)) {
-
             return empty($array) ? static::value($default) : end($array);
-
         }
 
         return static::first(array_reverse($array, true), $callback, $default);
@@ -210,8 +185,8 @@ class ArrayHelper
     /**
      * Flatten a multi-dimensional array into a single level.
      *
-     * @param  array $array
-     * @param  int   $depth
+     * @param array $array
+     * @param int   $depth
      *
      * @return array
      */
@@ -221,17 +196,11 @@ class ArrayHelper
             $item = $item instanceof Collection ? $item->all() : $item;
 
             if (!is_array($item)) {
-
                 return array_merge($result, [$item]);
-
             } elseif ($depth === 1) {
-
                 return array_merge($result, array_values($item));
-
             } else {
-
                 return array_merge($result, static::flatten($item, $depth - 1));
-
             }
         }, []);
     }
@@ -239,8 +208,8 @@ class ArrayHelper
     /**
      * Remove one or many array items from a given array using "dot" notation.
      *
-     * @param  array        $array
-     * @param  array|string $keys
+     * @param array        $array
+     * @param array|string $keys
      *
      * @return void
      */
@@ -248,18 +217,15 @@ class ArrayHelper
     {
         $original = &$array;
 
-        $keys = (array)$keys;
+        $keys = (array) $keys;
 
         if (count($keys) === 0) {
-
             return;
-
         }
 
         foreach ($keys as $key) {
             // if the exact key exists in the top-level, remove it
             if (static::exists($array, $key)) {
-
                 unset($array[$key]);
 
                 continue;
@@ -271,17 +237,12 @@ class ArrayHelper
             $array = &$original;
 
             while (count($parts) > 1) {
-
                 $part = array_shift($parts);
 
                 if (isset($array[$part]) && is_array($array[$part])) {
-
                     $array = &$array[$part];
-
                 } else {
-
                     continue 2;
-
                 }
             }
 
@@ -292,42 +253,31 @@ class ArrayHelper
     /**
      * Get an item from an array using "dot" notation.
      *
-     * @param  \ArrayAccess|array $array
-     * @param  string             $key
-     * @param  mixed              $default
+     * @param \ArrayAccess|array $array
+     * @param string             $key
+     * @param mixed              $default
      *
      * @return mixed
      */
     public static function get($array, $key, $default = null)
     {
         if (!static::accessible($array)) {
-
             return static::value($default);
-
         }
 
         if (is_null($key)) {
-
             return $array;
-
         }
 
         if (static::exists($array, $key)) {
-
             return $array[$key];
-
         }
 
         foreach (explode('.', $key) as $segment) {
-
             if (static::accessible($array) && static::exists($array, $segment)) {
-
                 $array = $array[$segment];
-
             } else {
-
                 return static::value($default);
-
             }
         }
 
@@ -337,53 +287,39 @@ class ArrayHelper
     /**
      * Check if an item or items exist in an array using "dot" notation.
      *
-     * @param  \ArrayAccess|array $array
-     * @param  string|array       $keys
+     * @param \ArrayAccess|array $array
+     * @param string|array       $keys
      *
      * @return bool
      */
     public static function has($array, $keys)
     {
         if (is_null($keys)) {
-
             return false;
-
         }
 
-        $keys = (array)$keys;
+        $keys = (array) $keys;
 
         if (!$array) {
-
             return false;
-
         }
 
         if ($keys === []) {
-
             return false;
-
         }
 
         foreach ($keys as $key) {
-
             $subKeyArray = $array;
 
             if (static::exists($array, $key)) {
-
                 continue;
-
             }
 
             foreach (explode('.', $key) as $segment) {
-
                 if (static::accessible($subKeyArray) && static::exists($subKeyArray, $segment)) {
-
                     $subKeyArray = $subKeyArray[$segment];
-
                 } else {
-
                     return false;
-
                 }
             }
         }
@@ -396,7 +332,7 @@ class ArrayHelper
      *
      * An array is "associative" if it doesn't have sequential numerical keys beginning with zero.
      *
-     * @param  array $array
+     * @param array $array
      *
      * @return bool
      */
@@ -410,22 +346,22 @@ class ArrayHelper
     /**
      * Get a subset of the items from the given array.
      *
-     * @param  array        $array
-     * @param  array|string $keys
+     * @param array        $array
+     * @param array|string $keys
      *
      * @return array
      */
     public static function only($array, $keys)
     {
-        return array_intersect_key($array, array_flip((array)$keys));
+        return array_intersect_key($array, array_flip((array) $keys));
     }
 
     /**
      * Pluck an array of values from an array.
      *
-     * @param  array             $array
-     * @param  string|array      $value
-     * @param  string|array|null $key
+     * @param array             $array
+     * @param string|array      $value
+     * @param string|array|null $key
      *
      * @return array
      */
@@ -436,18 +372,14 @@ class ArrayHelper
         list($value, $key) = static::explodePluckParameters($value, $key);
 
         foreach ($array as $item) {
-
             $itemValue = static::dataGet($item, $value);
 
             // If the key is "null", we will just append the value to the array and keep
             // looping. Otherwise we will key the array using the value of the key we
             // received from the developer. Then we'll return the final array form.
             if (is_null($key)) {
-
                 $results[] = $itemValue;
-
             } else {
-
                 $itemKey = static::dataGet($item, $key);
 
                 $results[$itemKey] = $itemValue;
@@ -460,8 +392,8 @@ class ArrayHelper
     /**
      * Explode the "value" and "key" arguments passed to "pluck".
      *
-     * @param  string|array      $value
-     * @param  string|array|null $key
+     * @param string|array      $value
+     * @param string|array|null $key
      *
      * @return array
      */
@@ -477,22 +409,18 @@ class ArrayHelper
     /**
      * Push an item onto the beginning of an array.
      *
-     * @param  array $array
-     * @param  mixed $value
-     * @param  mixed $key
+     * @param array $array
+     * @param mixed $value
+     * @param mixed $key
      *
      * @return array
      */
     public static function prepend($array, $value, $key = null)
     {
         if (is_null($key)) {
-
             array_unshift($array, $value);
-
         } else {
-
             $array = [$key => $value] + $array;
-
         }
 
         return $array;
@@ -501,9 +429,9 @@ class ArrayHelper
     /**
      * Get a value from the array, and remove it.
      *
-     * @param  array  $array
-     * @param  string $key
-     * @param  mixed  $default
+     * @param array  $array
+     * @param string $key
+     * @param mixed  $default
      *
      * @return mixed
      */
@@ -521,33 +449,28 @@ class ArrayHelper
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param  array  $array
-     * @param  string $key
-     * @param  mixed  $value
+     * @param array  $array
+     * @param string $key
+     * @param mixed  $value
      *
      * @return array
      */
     public static function set(&$array, $key, $value)
     {
         if (is_null($key)) {
-
             return $array = $value;
-
         }
 
         $keys = explode('.', $key);
 
         while (count($keys) > 1) {
-
             $key = array_shift($keys);
 
             // If the key doesn't exist at this depth, we will just create an empty array
             // to hold the next value, allowing us to create the arrays to hold final
             // values at the correct depth. Then we'll keep digging into the array.
             if (!isset($array[$key]) || !is_array($array[$key])) {
-
                 $array[$key] = [];
-
             }
 
             $array = &$array[$key];
@@ -561,8 +484,8 @@ class ArrayHelper
     /**
      * Sort the array using the given callback or "dot" notation.
      *
-     * @param  array           $array
-     * @param  callable|string $callback
+     * @param array           $array
+     * @param callable|string $callback
      *
      * @return array
      */
@@ -574,29 +497,22 @@ class ArrayHelper
     /**
      * Recursively sort an array by keys and values.
      *
-     * @param  array $array
+     * @param array $array
      *
      * @return array
      */
     public static function sortRecursive($array)
     {
         foreach ($array as &$value) {
-
             if (is_array($value)) {
-
                 $value = static::sortRecursive($value);
-
             }
         }
 
         if (static::isAssoc($array)) {
-
             ksort($array);
-
         } else {
-
             sort($array);
-
         }
 
         return $array;
@@ -605,8 +521,8 @@ class ArrayHelper
     /**
      * Filter the array using the given callback.
      *
-     * @param  array    $array
-     * @param  callable $callback
+     * @param array    $array
+     * @param callable $callback
      *
      * @return array
      */
@@ -630,34 +546,26 @@ class ArrayHelper
     /**
      * Get an item from an array or object using "dot" notation.
      *
-     * @param  mixed        $target
-     * @param  string|array $key
-     * @param  mixed        $default
+     * @param mixed        $target
+     * @param string|array $key
+     * @param mixed        $default
      *
      * @return mixed
      */
     public static function dataGet($target, $key, $default = null)
     {
         if (is_null($key)) {
-
             return $target;
-
         }
 
         $key = is_array($key) ? $key : explode('.', $key);
 
-        while (! is_null($segment = array_shift($key))) {
-
+        while (!is_null($segment = array_shift($key))) {
             if ($segment === '*') {
-
                 if ($target instanceof Collection) {
-
                     $target = $target->all();
-
-                } elseif (! is_array($target)) {
-
+                } elseif (!is_array($target)) {
                     return static::value($default);
-
                 }
                 $result = static::pluck($target, $key);
 
@@ -665,17 +573,11 @@ class ArrayHelper
             }
 
             if (static::accessible($target) && static::exists($target, $segment)) {
-
                 $target = $target[$segment];
-
             } elseif (is_object($target) && isset($target->{$segment})) {
-
                 $target = $target->{$segment};
-
             } else {
-
                 return static::value($default);
-
             }
         }
 

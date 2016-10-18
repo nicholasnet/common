@@ -28,7 +28,7 @@ class MandrillTest extends \PHPUnit_Framework_TestCase
                         'key'         => 'test',
                         'to'          => ['me@example.com', 'me@example.com', 'me@example.com'],
                         'raw_message' => $message->toString(),
-                        'async'       => true
+                        'async'       => true,
                     ],
                ]));
 

@@ -20,7 +20,6 @@ class XmlToArrayTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateArrayInvalidInputException()
     {
-        XmlToArray::createArray(new \stdClass);
+        XmlToArray::createArray(new \stdClass());
     }
-
 }
