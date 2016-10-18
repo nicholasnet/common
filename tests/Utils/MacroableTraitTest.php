@@ -2,7 +2,7 @@
 
 namespace IdeasBucket\Common\Utils;
 
-require_once(__DIR__ . DIRECTORY_SEPARATOR . 'test.php');
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'test.php';
 
 class MacroableTraitTest extends \PHPUnit_Framework_TestCase
 {
