@@ -203,7 +203,7 @@ class Encrypter implements EncrypterInterface
      */
     protected function validMac(array $payload)
     {
-        $bytes = random_bytes(16);
+        $bytes = $this->getRandomBytes(16);
 
         $calcMac = hash_hmac('sha256', $this->hash($payload['iv'], $payload['value']), $bytes, true);
 
