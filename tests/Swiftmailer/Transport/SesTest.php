@@ -2,13 +2,14 @@
 
 namespace IdeasBucket\Common\Swiftmailer\Transport;
 
+use IdeasBucket\Common\Swiftmailer\Message\TrackedMessage;
 use Swift_Message;
 
 class SesTest extends \PHPUnit_Framework_TestCase
 {
     public function testSend()
     {
-        $message = new Swift_Message('Foo subject', 'Bar body');
+        $message = TrackedMessage::newInstance('Foo subject', 'Bar body');
         $message->setSender('myself@example.com');
         $message->setTo('me@example.com');
         $message->setBcc('you@example.com');

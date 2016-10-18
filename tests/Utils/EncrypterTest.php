@@ -20,17 +20,24 @@ class EncrypterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $e->decrypt($encrypted));
     }
 
-//    public function testWithCustomCipher()
-//    {
-//        $e = new Encrypter(str_repeat('b', 32), 'AES-256-CBC');
-//        $encrypted = $e->encrypt('bar');
-//        $this->assertNotEquals('bar', $encrypted);
-//        $this->assertEquals('bar', $e->decrypt($encrypted));
-//        $e = new Encrypter(random_bytes(32), 'AES-256-CBC');
-//        $encrypted = $e->encrypt('foo');
-//        $this->assertNotEquals('foo', $encrypted);
-//        $this->assertEquals('foo', $e->decrypt($encrypted));
-//    }
+    public function testWithCustomCipher()
+    {
+        $e = new Encrypter(str_repeat('b', 32), 'AES-256-CBC');
+        $encrypted = $e->encrypt('bar');
+        $this->assertNotEquals('bar', $encrypted);
+        $this->assertEquals('bar', $e->decrypt($encrypted));
+        $e = new Encrypter($e->getRandomBytes(32), 'AES-256-CBC');
+        $encrypted = $e->encrypt('foo');
+        $this->assertNotEquals('foo', $encrypted);
+        $this->assertEquals('foo', $e->decrypt($encrypted));
+    }
+
+    public function testGetter()
+    {
+        $key = str_repeat('b', 32);
+        $e = new Encrypter($key, 'AES-256-CBC');
+        $this->assertEquals($key, $e->getKey());
+    }
 
     /**
      * @expectedException \RuntimeException

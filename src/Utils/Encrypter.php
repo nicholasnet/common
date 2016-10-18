@@ -7,7 +7,7 @@ namespace IdeasBucket\Common\Utils;
  * @package IdeasBucket\Common\Utils
  *
  * Note: Adapted from Laravel Framework.
- * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
+ * @see     https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 class Encrypter implements EncrypterInterface
 {
@@ -26,14 +26,23 @@ class Encrypter implements EncrypterInterface
     protected $cipher;
 
     /**
+     * Flag that indicates whether insecure random bytes are allowed if user is not using PHP7 and there is no
+     * openssl_random_pseudo_bytes method available.
+     *
+     * @var bool
+     */
+    private $allowCryptographicallyInsecureRandom = false;
+
+    /**
      * Create a new encrypter instance.
      *
-     * @param  string $key
-     * @param  string $cipher
+     * @param  string  $key
+     * @param  string  $cipher
+     * @param  boolean $allowCryptographicallyInsecureRandom
      *
      * @throws \RuntimeException
      */
-    public function __construct($key, $cipher = 'AES-128-CBC')
+    public function __construct($key, $cipher = 'AES-128-CBC', $allowCryptographicallyInsecureRandom = false)
     {
         $key = (string)$key;
 
@@ -47,6 +56,8 @@ class Encrypter implements EncrypterInterface
             throw new \RuntimeException('The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths.');
 
         }
+
+        $this->allowCryptographicallyInsecureRandom = $allowCryptographicallyInsecureRandom;
     }
 
     /**
@@ -75,15 +86,9 @@ class Encrypter implements EncrypterInterface
      */
     public function encrypt($value)
     {
-        $iv = $this->getRandomBytes();
+        $iv = $this->getRandomBytes(16);
 
-        if ($iv === false) {
-
-            throw new EncryptException('Could not encrypt the data because no appropriate extension were found.');
-
-        }
-
-        $value = openssl_encrypt(serialize($value), $this->cipher, $this->key, 0, $iv);
+        $value = \openssl_encrypt(serialize($value), $this->cipher, $this->key, 0, $iv);
 
         if ($value === false) {
 
@@ -122,7 +127,7 @@ class Encrypter implements EncrypterInterface
 
         $iv = base64_decode($payload['iv']);
 
-        $decrypted = openssl_decrypt($payload['value'], $this->cipher, $this->key, 0, $iv);
+        $decrypted = \openssl_decrypt($payload['value'], $this->cipher, $this->key, 0, $iv);
 
         if ($decrypted === false) {
 
@@ -198,42 +203,11 @@ class Encrypter implements EncrypterInterface
      */
     protected function validMac(array $payload)
     {
-        $bytes = $this->getRandomBytes();
+        $bytes = random_bytes(16);
+
         $calcMac = hash_hmac('sha256', $this->hash($payload['iv'], $payload['value']), $bytes, true);
 
         return hash_equals(hash_hmac('sha256', $payload['mac'], $bytes, true), $calcMac);
-    }
-
-    /**
-     * @param int $length
-     *
-     * @return bool
-     */
-    private function getRandomBytes($length = 16)
-    {
-        if (function_exists('random_bytes')) {
-
-            return random_bytes(16);
-
-        }
-
-        if (function_exists('openssl_random_pseudo_bytes')) {
-
-            $bytes = openssl_random_pseudo_bytes($length, $strongSource);
-
-            if (!$strongSource) {
-
-                throw new EncryptException('openssl was unable to use a strong source of entropy. ' .
-                    'Consider updating your system libraries, or ensuring ' .
-                    'you have more available entropy.');
-
-            }
-
-            return $bytes;
-        }
-
-        throw new EncryptException('You do not have a safe source of random data available. ' .
-            'Install either the openssl extension, or paragonie/random_compat.');
     }
 
     /**
@@ -244,5 +218,78 @@ class Encrypter implements EncrypterInterface
     public function getKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Get random bytes from a secure source.
+     *
+     * This method will fall back to an insecure source an trigger a warning
+     * if it cannot find a secure source of random data.
+     *
+     * @param int     $length The number of bytes you want.
+     *
+     * @return string Random bytes in binary.
+     */
+    public function getRandomBytes($length)
+    {
+        if (function_exists('random_bytes')) {
+
+            return random_bytes($length);
+
+        }
+
+        if (function_exists('openssl_random_pseudo_bytes')) {
+
+            $bytes = openssl_random_pseudo_bytes($length, $strongSource);
+
+            if (!$strongSource) {
+
+                throw new EncryptException(
+                    'openssl was unable to use a strong source of entropy. ' .
+                    'Consider updating your system libraries, or ensuring ' .
+                    'you have more available entropy.'
+                );
+            }
+
+            return $bytes;
+        }
+
+        if ($this->allowCryptographicallyInsecureRandom === false) {
+
+            throw new EncryptException(
+                'You do not have a safe source of random data available. ' .
+                'Install either the openssl extension, or paragonie/random_compat.'
+            );
+        }
+
+
+        return $this->insecureRandomBytes($length);
+    }
+
+    /**
+     * Like randomBytes() above, but not cryptographically secure.
+     *
+     * @param int $length The number of bytes you want.
+     *
+     * @return string Random bytes in binary.
+     *
+     * @see \IdeasBucket\Common\Utils\Encrypter::getRandomBytes()
+     */
+    public function insecureRandomBytes($length)
+    {
+        $length *= 2;
+        $bytes = '';
+        $byteLength = 0;
+
+        while ($byteLength < $length) {
+
+            $bytes .= $this->hash(StringHelper::uuid() . uniqid(mt_rand(), true), 'sha512');
+            $byteLength = strlen($bytes);
+
+        }
+
+        $bytes = substr($bytes, 0, $length);
+
+        return pack('H*', $bytes);
     }
 }

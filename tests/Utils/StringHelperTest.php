@@ -21,6 +21,14 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(6, StringHelper::length('это'));
     }
 
+    public function testUuidGeneration()
+    {
+        $result = StringHelper::uuid();
+        $pattern = "/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/";
+        $match = (bool)preg_match($pattern, $result);
+        $this->assertTrue($match);
+    }
+
     public function testCamelCase()
     {
         $this->assertEquals('laravelPHPFramework', StringHelper::camelCase('Laravel_p_h_p_framework'));
