@@ -1,8 +1,9 @@
 filter:
     paths: [src/*]
     excluded_paths: [vendor/*, tests/*]
-before_commands:
-    - 'composer install --dev --prefer-source'
+checks:
+    php:
+        code_rating: true
 tools:
     php_sim: false
     php_cpd: false
