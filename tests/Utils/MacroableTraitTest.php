@@ -2,6 +2,8 @@
 
 namespace IdeasBucket\Common\Utils;
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'test.php';
+
 class MacroableTraitTest extends \PHPUnit_Framework_TestCase
 {
     private $macroable;
@@ -24,6 +26,11 @@ class MacroableTraitTest extends \PHPUnit_Framework_TestCase
         });
 
         $this->assertEquals('Taylor', $macroable::{__CLASS__}());
+
+        $macroable = $this->macroable;
+        $macroable::macro('testStatic', 'TEST_TEST_TEST');
+
+        $this->assertEquals('test', $macroable::testStatic());
     }
 
     public function testRegisterMacroAndCallWithoutStatic()
@@ -33,6 +40,10 @@ class MacroableTraitTest extends \PHPUnit_Framework_TestCase
             return 'Taylor';
         });
         $this->assertEquals('Taylor', $macroable->{__CLASS__}());
+
+        $macroable::macro('test', 'TEST_TEST_TEST');
+
+        $this->assertEquals('test', $macroable::test());
     }
 
     public function testWhenCallingMacroClosureIsBoundToObject()
