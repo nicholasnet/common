@@ -3,7 +3,6 @@
 namespace IdeasBucket\Common\Swiftmailer\Transport;
 
 use IdeasBucket\Common\Swiftmailer\Message\TrackedMessage;
-use Swift_Message;
 
 class SesTest extends \PHPUnit_Framework_TestCase
 {

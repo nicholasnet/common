@@ -8,7 +8,7 @@ class ExtensionsTest extends Twig_Test_IntegrationTestCase
 {
     public function getExtensions()
     {
-        return [new Extensions];
+        return [new Extensions()];
     }
 
     /**
@@ -16,6 +16,6 @@ class ExtensionsTest extends Twig_Test_IntegrationTestCase
      */
     protected function getFixturesDir()
     {
-        return dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
+        return dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'fixtures'.DIRECTORY_SEPARATOR;
     }
 }

@@ -110,27 +110,22 @@ class EncrypterTest extends \PHPUnit_Framework_TestCase
     private function getRandomBytes($length = 16)
     {
         if (function_exists('random_bytes')) {
-
             return random_bytes(16);
-
         }
 
         if (function_exists('openssl_random_pseudo_bytes')) {
-
             $bytes = openssl_random_pseudo_bytes($length, $strongSource);
 
             if (!$strongSource) {
-
-                throw new EncryptException('openssl was unable to use a strong source of entropy. ' .
-                    'Consider updating your system libraries, or ensuring ' .
+                throw new EncryptException('openssl was unable to use a strong source of entropy. '.
+                    'Consider updating your system libraries, or ensuring '.
                     'you have more available entropy.');
-
             }
 
             return $bytes;
         }
 
-        throw new EncryptException('You do not have a safe source of random data available. ' .
+        throw new EncryptException('You do not have a safe source of random data available. '.
             'Install either the openssl extension, or paragonie/random_compat.');
     }
 }

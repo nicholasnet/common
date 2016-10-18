@@ -2,15 +2,12 @@
 
 namespace IdeasBucket\Common\Swiftmailer\Transport;
 
-use Swift_Mime_Message;
 use GuzzleHttp\ClientInterface;
+use Swift_Mime_Message;
 
 /**
- * Class MandrillTransport
+ * Class MandrillTransport.
  *
- * @package IdeasBucket\Common\Swiftmailer\Transport
- *
- * Note: Adapted from Laravel Framework.
  * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 class Mandrill extends AbstractTransport
@@ -32,8 +29,8 @@ class Mandrill extends AbstractTransport
     /**
      * Create a new Mandrill transport instance.
      *
-     * @param  \GuzzleHttp\ClientInterface  $client
-     * @param  string  $key
+     * @param \GuzzleHttp\ClientInterface $client
+     * @param string                      $key
      */
     public function __construct(ClientInterface $client, $key)
     {
@@ -49,20 +46,16 @@ class Mandrill extends AbstractTransport
         $this->beforeSendPerformed($message);
 
         $data = [
-            'key' => $this->key,
-            'to' => $this->getToAddresses($message),
+            'key'         => $this->key,
+            'to'          => $this->getToAddresses($message),
             'raw_message' => $message->toString(),
-            'async' => true,
+            'async'       => true,
         ];
 
         if (version_compare(ClientInterface::VERSION, '6') === 1) {
-
             $options = ['form_params' => $data];
-
         } else {
-
             $options = ['body' => $data];
-
         }
 
         $this->client->post('https://mandrillapp.com/api/1.0/messages/send-raw.json', $options);
@@ -75,7 +68,8 @@ class Mandrill extends AbstractTransport
      *
      * Note that Mandrill still respects CC, BCC headers in raw message itself.
      *
-     * @param  \Swift_Mime_Message $message
+     * @param \Swift_Mime_Message $message
+     *
      * @return array
      */
     protected function getToAddresses(Swift_Mime_Message $message)
@@ -83,21 +77,15 @@ class Mandrill extends AbstractTransport
         $to = [];
 
         if ($message->getTo()) {
-
             $to = array_merge($to, array_keys($message->getTo()));
-
         }
 
         if ($message->getCc()) {
-
             $to = array_merge($to, array_keys($message->getCc()));
-
         }
 
         if ($message->getBcc()) {
-
             $to = array_merge($to, array_keys($message->getBcc()));
-
         }
 
         return $to;
@@ -116,7 +104,8 @@ class Mandrill extends AbstractTransport
     /**
      * Set the API key being used by the transport.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return string
      */
     public function setKey($key)

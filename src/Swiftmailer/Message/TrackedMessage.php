@@ -1,16 +1,14 @@
 <?php
 
 /**
- * TrackedMessage.php
+ * TrackedMessage.php.
  *
  * @author Nirmal <nirmalp@hotmail.com>
  */
 namespace IdeasBucket\Common\Swiftmailer\Message;
 
 /**
- * Class TrackedMessage
- *
- * @package IdeasBucket\Common\Swiftmailer\Message
+ * Class TrackedMessage.
  */
 class TrackedMessage extends \Swift_Message
 {
@@ -22,7 +20,7 @@ class TrackedMessage extends \Swift_Message
     protected $campaignId;
 
     /**
-     * Message Description
+     * Message Description.
      *
      * @var string
      */
@@ -80,6 +78,6 @@ class TrackedMessage extends \Swift_Message
      */
     public static function newInstance($subject = null, $body = null, $contentType = null, $charset = null)
     {
-        return new TrackedMessage($subject, $body, $contentType, $charset);
+        return new self($subject, $body, $contentType, $charset);
     }
 }

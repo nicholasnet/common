@@ -3,11 +3,10 @@
 namespace IdeasBucket\Common\Twig;
 
 use IdeasBucket\Common\Utils\StringHelper;
-use Twig_Extension;
 use Twig_SimpleFilter;
 
 /**
- * Class Extensions
+ * Class Extensions.
  */
 class Extensions extends \Twig_Extension
 {
