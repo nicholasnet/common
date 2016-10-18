@@ -1,4 +1,5 @@
 <?php
+
 namespace {
 
     $MOCK_NATIVE_METHOD = false;
@@ -6,16 +7,14 @@ namespace {
 
 namespace IdeasBucket\Common\Utils {
 
-    function function_exists($parameter) {
-
+    function function_exists($parameter)
+    {
         global $MOCK_NATIVE_METHOD;
 
         $args = func_get_args();
 
         if (isset($MOCK_NATIVE_METHOD) && $MOCK_NATIVE_METHOD === true) {
-
             return false;
-
         }
 
         return call_user_func('\function_exists', $args[0]);

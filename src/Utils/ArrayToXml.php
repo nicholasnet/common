@@ -3,8 +3,7 @@
 namespace IdeasBucket\Common\Utils;
 
 /**
- * Class ArrayToXml
- * @package IdeasBucket\Common\Utils
+ * Class ArrayToXml.
  */
 class ArrayToXml
 {
@@ -37,17 +36,17 @@ class ArrayToXml
     }
 
     /**
-     * This method converts an array to XML
+     * This method converts an array to XML.
      *
-     * @param string $nodeName Name of the root node to be converted.
-     * @param array  $arr       Array to be converted.
+     * @param string $nodeName     Name of the root node to be converted.
+     * @param array  $arr          Array to be converted.
      * @param string $version
      * @param string $encoding
      * @param bool   $formatOutput
      *
-     * @return \DOMDocument
-     *
      * @throws \Exception
+     *
+     * @return \DOMDocument
      */
     public static function createXML($nodeName, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
     {
@@ -60,8 +59,8 @@ class ArrayToXml
     /**
      * This method returns the string representation of DOMDocument.
      *
-     * @param string    $nodeName Name of the root node to be converted.
-     * @param array     $arr       Array to be converted.
+     * @param string    $nodeName     Name of the root node to be converted.
+     * @param array     $arr          Array to be converted.
      * @param string    $version
      * @param string    $encoding
      * @param bool|true $formatOutput
@@ -77,11 +76,11 @@ class ArrayToXml
      * This method converts an array into XML recursively.
      *
      * @param string $nodeName Name of the node.
-     * @param array  $arr       Data that we want to convert.
-     *
-     * @return mixed
+     * @param array  $arr      Data that we want to convert.
      *
      * @throws \Exception
+     *
+     * @return mixed
      */
     private function &convert($nodeName, $arr = [])
     {
@@ -95,12 +94,9 @@ class ArrayToXml
 
             // get the attributes first.;
             if (isset($arr['@attributes'])) {
-
                 foreach ($arr['@attributes'] as $key => $value) {
-
                     if (!$this->isValidTagName($key)) {
-
-                        throw new \Exception(__CLASS__ . ' Illegal character in attribute name. attribute: ' . $key . ' in node: ' . $nodeName);
+                        throw new \Exception(__CLASS__.' Illegal character in attribute name. attribute: '.$key.' in node: '.$nodeName);
                     }
 
                     $node->setAttribute($key, $this->boolToString($value));
@@ -112,15 +108,12 @@ class ArrayToXml
             // Check if it has a value stored in @value, if yes store the value and return
             // else check if its directly stored as string.
             if (isset($arr['@value'])) {
-
                 $node->appendChild($xml->createTextNode($this->boolToString($arr['@value'])));
                 unset($arr['@value']);    //remove the key from the array once done.
 
                 //Return from recursion, as a note with value cannot have child nodes.
                 return $node;
-
             } elseif (isset($arr['@cdata'])) {
-
                 $node->appendChild($xml->createCDATASection($this->boolToString($arr['@cdata'])));
                 unset($arr['@cdata']);    //remove the key from the array once done.
 
@@ -134,11 +127,8 @@ class ArrayToXml
 
             // recurse to get the node for that key
             foreach ($arr as $key => $value) {
-
                 if (!$this->isValidTagName($key)) {
-
-                    throw new \Exception(__CLASS__ . ' Illegal character in tag name. tag: ' . $key . ' in node: ' . $nodeName);
-
+                    throw new \Exception(__CLASS__.' Illegal character in tag name. tag: '.$key.' in node: '.$nodeName);
                 }
 
                 if (is_array($value) && is_numeric(key($value))) {
@@ -147,16 +137,12 @@ class ArrayToXml
                     // if the new array is numeric index, means it is array of nodes of the same kind
                     // it should follow the parent key name
                     foreach ($value as $k => $v) {
-
                         $node->appendChild($this->convert($key, $v));
-
                     }
-
                 } else {
 
                     // ONLY ONE NODE OF ITS KIND
                     $node->appendChild($this->convert($key, $value));
-
                 }
 
                 unset($arr[$key]); //remove the key from the array once done.
@@ -166,16 +152,14 @@ class ArrayToXml
         // After we are done with all the keys in the array (if it is one)
         // we check if it has any text value, if yes, append it.
         if (!is_array($arr)) {
-
             $node->appendChild($xml->createTextNode($this->boolToString($arr)));
-
         }
 
         return $node;
     }
 
     /**
-     * Get string representation of boolean value
+     * Get string representation of boolean value.
      *
      * @param bool $v Value to convert.
      *
@@ -191,7 +175,8 @@ class ArrayToXml
     }
 
     /**
-     * Check if the tag name or attribute name contains illegal characters
+     * Check if the tag name or attribute name contains illegal characters.
+     *
      * @see http://www.w3.org/TR/xml/#sec-common-syn
      *
      * @param string $tag Name of the tag that we want to validate.

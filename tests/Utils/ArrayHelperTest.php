@@ -9,11 +9,11 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(ArrayHelper::accessible([]));
         $this->assertTrue(ArrayHelper::accessible([1, 2]));
         $this->assertTrue(ArrayHelper::accessible(['a' => 1, 'b' => 2]));
-        $this->assertTrue(ArrayHelper::accessible(new Collection));
+        $this->assertTrue(ArrayHelper::accessible(new Collection()));
 
         $this->assertFalse(ArrayHelper::accessible(null));
         $this->assertFalse(ArrayHelper::accessible('abc'));
-        $this->assertFalse(ArrayHelper::accessible(new \stdClass));
+        $this->assertFalse(ArrayHelper::accessible(new \stdClass()));
         $this->assertFalse(ArrayHelper::accessible((object) ['a' => 1, 'b' => 2]));
     }
 
@@ -309,12 +309,12 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         $test2 = ArrayHelper::pluck($array, null, 'name');
 
         $this->assertEquals([
-            'Taylor' => 'developer',
+            'Taylor'  => 'developer',
             'Abigail' => 'developer',
         ], $test1);
 
         $this->assertEquals([
-            'Taylor' => ['name' => 'Taylor', 'role' => 'developer'],
+            'Taylor'  => ['name' => 'Taylor', 'role' => 'developer'],
             'Abigail' => ['name' => 'Abigail', 'role' => 'developer'],
         ], $test2);
     }
@@ -391,7 +391,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
                 ],
                 [
                     'name' => 'jane',
-                    'age' => 25,
+                    'age'  => 25,
                 ],
             ],
             'repositories' => [
@@ -422,12 +422,12 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             ],
             'users' => [
                 [
-                    'age' => 25,
+                    'age'  => 25,
                     'name' => 'jane',
                 ],
                 [
-                    'mail' => 'joe@example.com',
-                    'name' => 'joe',
+                    'mail'    => 'joe@example.com',
+                    'name'    => 'joe',
                     'numbers' => [0, 1, 2],
                 ],
             ],

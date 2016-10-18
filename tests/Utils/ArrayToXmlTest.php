@@ -13,7 +13,6 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
         $books = ['@value' => '1984 7'];
         $test = ArrayToXml::createXML('test', $books);
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?><test>1984 7</test>', $this->stripWhiteSpaceFromDOMDocument($test));
-
     }
 
     public function testNestingXml()
@@ -22,10 +21,10 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
             'nest' => [
                 'nest' => [
                     'nest' => [
-                        'nest' => 'bazingaaa!!!!'
-                    ]
-                ]
-            ]
+                        'nest' => 'bazingaaa!!!!',
+                    ],
+                ],
+            ],
         ]];
 
         $test = ArrayToXml::createXML('test', $nest);
@@ -64,15 +63,15 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
                     '@attributes' => [
                         'prop1' => 'aloha',
                         'prop2' => 'hello',
-                        'prop3' => 'ke cha'
+                        'prop3' => 'ke cha',
                     ],
                     'nest' => [
                         '@attributes' => [
-                            'prop1' => 'bazingaaa!!!!'
-                        ]
-                    ]
-                ]
-            ]
+                            'prop1' => 'bazingaaa!!!!',
+                        ],
+                    ],
+                ],
+            ],
         ]];
 
         $test = ArrayToXml::createXML('test', $nest);
@@ -94,117 +93,117 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
 
     public function namespaceSchemaTest()
     {
-        $restaurant = array();
-        $restaurant['@attributes'] = array(
-            'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+        $restaurant = [];
+        $restaurant['@attributes'] = [
+            'xmlns:xsi'                     => 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:noNamespaceSchemaLocation' => 'http://www.example.com/schmema.xsd',
-            'lastUpdated' => date('c')  // dynamic values
-        );
+            'lastUpdated'                   => date('c'),  // dynamic values
+        ];
 
-        $restaurant['masterChef'] = array(  //empty node with attributes
-            '@attributes' => array(
-                'name' => 'Mr. Big C.'
-            )
-        );
+        $restaurant['masterChef'] = [  //empty node with attributes
+            '@attributes' => [
+                'name' => 'Mr. Big C.',
+            ],
+        ];
 
 
-        $restaurant['menu'] = array();
-        $restaurant['menu']['@attributes'] = array(
-            'key' => 'english_menu',
-            'language' => 'en_US',
-            'defaultCurrency' => 'USD'
-        );
+        $restaurant['menu'] = [];
+        $restaurant['menu']['@attributes'] = [
+            'key'             => 'english_menu',
+            'language'        => 'en_US',
+            'defaultCurrency' => 'USD',
+        ];
 
 
         // we have multiple image tags (without value)
-        $restaurant['menu']['assets']['image'][] = array(
-            '@attributes' => array(
-                'info' => 'Logo',
+        $restaurant['menu']['assets']['image'][] = [
+            '@attributes' => [
+                'info'   => 'Logo',
                 'height' => '100',
-                'width' => '100',
-                'url' => 'http://www.example.com/res/logo.png'
-            )
-        );
-        $restaurant['menu']['assets']['image'][] = array(
-            '@attributes' => array(
-                'info' => 'HiRes Logo',
+                'width'  => '100',
+                'url'    => 'http://www.example.com/res/logo.png',
+            ],
+        ];
+        $restaurant['menu']['assets']['image'][] = [
+            '@attributes' => [
+                'info'   => 'HiRes Logo',
                 'height' => '300',
-                'width' => '300',
-                'url' => 'http://www.example.com/res/hires_logo.png'
-            )
-        );
+                'width'  => '300',
+                'url'    => 'http://www.example.com/res/hires_logo.png',
+            ],
+        ];
 
-        $restaurant['menu']['item'] = array();
-        $restaurant['menu']['item'][] = array(
-            '@attributes' => array(
+        $restaurant['menu']['item'] = [];
+        $restaurant['menu']['item'][] = [
+            '@attributes' => [
                 'lastUpdated' => '2011-06-09T08:30:18-05:00',
-                'available' => true  // boolean values will be converted to 'true' and not 1
-            ),
-            'category' => array('bread', 'chicken', 'non-veg'),	 // we have multiple category tags with text nodes
-            'keyword' => array('burger', 'chicken'),
-            'assets' => array(
+                'available'   => true,  // boolean values will be converted to 'true' and not 1
+            ],
+            'category' => ['bread', 'chicken', 'non-veg'],     // we have multiple category tags with text nodes
+            'keyword'  => ['burger', 'chicken'],
+            'assets'   => [
                 'title' => 'Zinger Burger',
-                'desc' => array('@cdata'=>'The Burger we all love >_< !'),
-                'image' => array(
-                    '@attributes' => array(
+                'desc'  => ['@cdata' => 'The Burger we all love >_< !'],
+                'image' => [
+                    '@attributes' => [
                         'height' => '100',
-                        'width' => '100',
-                        'url' => 'http://www.example.com/res/zinger.png',
-                        'info' => 'Zinger Burger'
-                    )
-                )
-            ),
-            'price' => array(
-                array(
-                    '@value' => 10,  // will create textnode <price currency="USD">10</price>
-                    '@attributes' => array(
-                        'currency' => 'USD'
-                    )
-                ),
-                array(
-                    '@value' => 450,  // will create textnode <price currency="INR">450</price>
-                    '@attributes' => array(
-                        'currency' => 'INR'
-                    )
-                )
-            ),
-            'trivia' => null  // will create empty node <trivia/>
-        );
-        $restaurant['menu']['item'][] = array(
-            '@attributes' => array(
+                        'width'  => '100',
+                        'url'    => 'http://www.example.com/res/zinger.png',
+                        'info'   => 'Zinger Burger',
+                    ],
+                ],
+            ],
+            'price' => [
+                [
+                    '@value'      => 10,  // will create textnode <price currency="USD">10</price>
+                    '@attributes' => [
+                        'currency' => 'USD',
+                    ],
+                ],
+                [
+                    '@value'      => 450,  // will create textnode <price currency="INR">450</price>
+                    '@attributes' => [
+                        'currency' => 'INR',
+                    ],
+                ],
+            ],
+            'trivia' => null,  // will create empty node <trivia/>
+        ];
+        $restaurant['menu']['item'][] = [
+            '@attributes' => [
                 'lastUpdated' => '2011-06-09T08:30:18-05:00',
-                'available' => true  // boolean values will be preserved
-            ),
-            'category' => array('salad', 'veg'),
-            'keyword' => array('greek', 'salad'),
-            'assets' => array(
+                'available'   => true,  // boolean values will be preserved
+            ],
+            'category' => ['salad', 'veg'],
+            'keyword'  => ['greek', 'salad'],
+            'assets'   => [
                 'title' => 'Greek Salad',
-                'desc' => array('@cdata'=>'Chef\'s Favorites'),
-                'image' => array(
-                    '@attributes' => array(
+                'desc'  => ['@cdata' => 'Chef\'s Favorites'],
+                'image' => [
+                    '@attributes' => [
                         'height' => '100',
-                        'width' => '100',
-                        'url' => 'http://www.example.com/res/greek.png',
-                        'info' => 'Greek Salad'
-                    )
-                )
-            ),
-            'price' => array(
-                array(
-                    '@value' => 20,  // will create textnode <price currency="USD">20</price>
-                    '@attributes' => array(
-                        'currency' => 'USD'
-                    )
-                ),
-                array(
-                    '@value' => 900,  // will create textnode <price currency="INR">900</price>
-                    '@attributes' => array(
-                        'currency' => 'INR'
-                    )
-                )
-            ),
-            'trivia' => 'Loved by the Greek!'
-        );
+                        'width'  => '100',
+                        'url'    => 'http://www.example.com/res/greek.png',
+                        'info'   => 'Greek Salad',
+                    ],
+                ],
+            ],
+            'price' => [
+                [
+                    '@value'      => 20,  // will create textnode <price currency="USD">20</price>
+                    '@attributes' => [
+                        'currency' => 'USD',
+                    ],
+                ],
+                [
+                    '@value'      => 900,  // will create textnode <price currency="INR">900</price>
+                    '@attributes' => [
+                        'currency' => 'INR',
+                    ],
+                ],
+            ],
+            'trivia' => 'Loved by the Greek!',
+        ];
 
         $xml = $this->stripWhiteSpaceFromDOMDocument(ArrayToXml::createXML('restaurant', $restaurant));
 
@@ -253,38 +252,38 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
 
     public function testPropertyAndValueWithNesting()
     {
-        $books = array(
-            '@attributes' => array(
-                'type' => 'fiction'
-            ),
-            'book' => array(
-                array(
-                    '@attributes' => array(
-                        'author' => 'George Orwell'
-                    ),
-                    'title' => '1984'
-                ),
-                array(
-                    '@attributes' => array(
-                        'author' => 'Isaac Asimov'
-                    ),
-                    'title' => array('@cdata'=>'Foundation'),
-                    'price' => '$15.61'
-                ),
-                array(
-                    '@attributes' => array(
-                        'author' => 'Robert A Heinlein'
-                    ),
-                    'title' =>  array('@cdata'=>'Stranger in a Strange Land'),
-                    'price' => array(
-                        '@attributes' => array(
-                            'discount' => '10%'
-                        ),
-                        '@value' => '$18.00'
-                    )
-                )
-            )
-        );
+        $books = [
+            '@attributes' => [
+                'type' => 'fiction',
+            ],
+            'book' => [
+                [
+                    '@attributes' => [
+                        'author' => 'George Orwell',
+                    ],
+                    'title' => '1984',
+                ],
+                [
+                    '@attributes' => [
+                        'author' => 'Isaac Asimov',
+                    ],
+                    'title' => ['@cdata' => 'Foundation'],
+                    'price' => '$15.61',
+                ],
+                [
+                    '@attributes' => [
+                        'author' => 'Robert A Heinlein',
+                    ],
+                    'title' => ['@cdata' => 'Stranger in a Strange Land'],
+                    'price' => [
+                        '@attributes' => [
+                            'discount' => '10%',
+                        ],
+                        '@value' => '$18.00',
+                    ],
+                ],
+            ],
+        ];
 
         $test = ArrayToXml::getXmlString('books', $books);
 
@@ -305,7 +304,6 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertEquals($this->stripWhiteSpaceFromString($expectedResult), $this->stripWhiteSpaceFromString($test));
-
     }
 
     /**
@@ -319,24 +317,22 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
             'nest' => [
                 $name => [
                     'nest' => [
-                        $name => 'bazingaaa!!!!'
-                    ]
-                ]
-            ]
+                        $name => 'bazingaaa!!!!',
+                    ],
+                ],
+            ],
         ]];
 
         ArrayToXml::createXML('test', $nest);
     }
 
-
     private function stripWhiteSpaceFromDOMDocument(\DOMDocument $xml)
     {
-        return trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), '', $xml->saveXML()));
+        return trim(preg_replace(['/\s{2,}/', '/[\t\n]/'], '', $xml->saveXML()));
     }
 
     private function stripWhiteSpaceFromString($xml)
     {
-        return trim(preg_replace(array('/\s{2,}/', '/[\t\n]/'), '', $xml));
+        return trim(preg_replace(['/\s{2,}/', '/[\t\n]/'], '', $xml));
     }
 }
-

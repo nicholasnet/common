@@ -22,9 +22,7 @@ class MacroableTraitTest extends \PHPUnit_Framework_TestCase
     {
         $macroable = $this->macroable;
         $macroable::macro(__CLASS__, function () {
-
             return 'Taylor';
-
         });
 
         $this->assertEquals('Taylor', $macroable::{__CLASS__}());
@@ -51,18 +49,14 @@ class MacroableTraitTest extends \PHPUnit_Framework_TestCase
     public function testWhenCallingMacroClosureIsBoundToObject()
     {
         TestMacroable::macro('tryInstance', function () {
-
             return $this->protectedVariable;
-
         });
 
         TestMacroable::macro('tryStatic', function () {
-
             return static::getProtectedStatic();
-
         });
 
-        $instance = new TestMacroable;
+        $instance = new TestMacroable();
 
         $result = $instance->tryInstance();
         $this->assertEquals('instance', $result);
@@ -77,7 +71,7 @@ class MacroableTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionWhenCallingMethodThatDoesNotExist()
     {
-        (new TestMacroable)->noop();
+        (new TestMacroable())->noop();
     }
 
     /**
@@ -101,4 +95,3 @@ class TestMacroable
         return 'static';
     }
 }
-
