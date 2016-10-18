@@ -88,7 +88,7 @@ class Encrypter implements EncrypterInterface
     {
         $iv = $this->getRandomBytes(16);
 
-        $value = \openssl_encrypt(serialize($value), $this->cipher, $this->key, 0, $iv);
+        $value = openssl_encrypt(serialize($value), $this->cipher, $this->key, 0, $iv);
 
         if ($value === false) {
 
@@ -242,7 +242,7 @@ class Encrypter implements EncrypterInterface
 
             $bytes = openssl_random_pseudo_bytes($length, $strongSource);
 
-            if (!$strongSource) {
+            if ($strongSource === false) {
 
                 throw new EncryptException(
                     'openssl was unable to use a strong source of entropy. ' .

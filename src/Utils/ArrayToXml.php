@@ -25,9 +25,9 @@ class ArrayToXml
     /**
      * This method initializes the root XML node.
      *
-     * @param string    $version      XML version that we want to use.
-     * @param string    $encoding     Encoding that we want to use.
-     * @param bool|true $formatOutput Boolean to indicate whether we want to format the output or not.
+     * @param string $version      XML version that we want to use.
+     * @param string $encoding     Encoding that we want to use.
+     * @param bool   $formatOutput Boolean to indicate whether we want to format the output or not.
      */
     private function __construct($version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
     {
@@ -39,11 +39,11 @@ class ArrayToXml
     /**
      * This method converts an array to XML
      *
-     * @param string     $node_name Name of the root node to be converted.
-     * @param array|bool $arr       Array to be converted.
-     * @param string     $version
-     * @param string     $encoding
-     * @param bool|true  $formatOutput
+     * @param string $node_name Name of the root node to be converted.
+     * @param array  $arr       Array to be converted.
+     * @param string $version
+     * @param string $encoding
+     * @param bool   $formatOutput
      *
      * @return \DOMDocument
      *

@@ -1308,7 +1308,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Get a value retrieving callback.
      *
-     * @param  string $value
+     * @param  callable|string $value
      *
      * @return callable
      */
