@@ -39,7 +39,7 @@ class ArrayToXml
     /**
      * This method converts an array to XML
      *
-     * @param string $node_name Name of the root node to be converted.
+     * @param string $nodeName Name of the root node to be converted.
      * @param array  $arr       Array to be converted.
      * @param string $version
      * @param string $encoding
@@ -49,10 +49,10 @@ class ArrayToXml
      *
      * @throws \Exception
      */
-    public static function createXML($node_name, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
+    public static function createXML($nodeName, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
     {
         $class = new self($version, $encoding, $formatOutput);
-        $class->xml->appendChild($class->convert($node_name, $arr));
+        $class->xml->appendChild($class->convert($nodeName, $arr));
 
         return $class->xml;
     }
@@ -60,36 +60,36 @@ class ArrayToXml
     /**
      * This method returns the string representation of DOMDocument.
      *
-     * @param string     $node_name Name of the root node to be converted.
-     * @param array|bool $arr       Array to be converted.
-     * @param string     $version
-     * @param string     $encoding
-     * @param bool|true  $formatOutput
+     * @param string    $nodeName Name of the root node to be converted.
+     * @param array     $arr       Array to be converted.
+     * @param string    $version
+     * @param string    $encoding
+     * @param bool|true $formatOutput
      *
      * @return string
      */
-    public static function getXmlString($node_name, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
+    public static function getXmlString($nodeName, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
     {
-        return self::createXML($node_name, $arr, $version, $encoding, $formatOutput)->saveXML();
+        return self::createXML($nodeName, $arr, $version, $encoding, $formatOutput)->saveXML();
     }
 
     /**
      * This method converts an array into XML recursively.
      *
-     * @param string $node_name Name of the node.
+     * @param string $nodeName Name of the node.
      * @param array  $arr       Data that we want to convert.
      *
      * @return mixed
      *
      * @throws \Exception
      */
-    private function &convert($node_name, $arr = [])
+    private function &convert($nodeName, $arr = [])
     {
         /** @var \DOMDocument $xml */
         $xml = $this->xml;
 
         /** @var \DOMElement $node */
-        $node = $xml->createElement($node_name);
+        $node = $xml->createElement($nodeName);
 
         if (is_array($arr)) {
 
@@ -100,7 +100,7 @@ class ArrayToXml
 
                     if (!$this->isValidTagName($key)) {
 
-                        throw new \Exception(__CLASS__ . ' Illegal character in attribute name. attribute: ' . $key . ' in node: ' . $node_name);
+                        throw new \Exception(__CLASS__ . ' Illegal character in attribute name. attribute: ' . $key . ' in node: ' . $nodeName);
                     }
 
                     $node->setAttribute($key, $this->boolToString($value));
@@ -137,7 +137,7 @@ class ArrayToXml
 
                 if (!$this->isValidTagName($key)) {
 
-                    throw new \Exception(__CLASS__ . ' Illegal character in tag name. tag: ' . $key . ' in node: ' . $node_name);
+                    throw new \Exception(__CLASS__ . ' Illegal character in tag name. tag: ' . $key . ' in node: ' . $nodeName);
 
                 }
 
