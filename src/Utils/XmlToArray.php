@@ -53,14 +53,21 @@ class XmlToArray
         $xml = $class->xml;
 
         if (is_string($inputXml)) {
+
             $parsed = $xml->loadXML($inputXml);
 
             if (!$parsed) {
+
                 throw new \Exception('[XML2Array] Error parsing the XML string.');
+
             }
+
         } else {
+
             if (get_class($inputXml) != 'DOMDocument') {
+
                 throw new \Exception('[XML2Array] The input XML object should be of type: DOMDocument.');
+
             }
 
             $xml = $class->xml = $inputXml;
@@ -100,29 +107,39 @@ class XmlToArray
                     $v = $this->convert($child);
 
                     if (isset($child->tagName)) {
+
                         $t = $child->tagName;
 
                         // assume more nodes of same kind are coming
                         if (!isset($output[$t])) {
+
                             $output[$t] = [];
+
                         }
 
                         $output[$t][] = $v;
+
                     } else {
 
                         //check if it is not an empty text node
                         if ($v !== '') {
+
                             $output = $v;
+
                         }
                     }
                 }
 
                 if (is_array($output)) {
 
+
                     // if only one node of its kind, assign it directly instead if array($value);
                     foreach ($output as $t => $v) {
+
                         if (is_array($v) && count($v) == 1) {
+
                             $output[$t] = $v[0];
+
                         }
                     }
 
@@ -135,18 +152,24 @@ class XmlToArray
 
                 // loop through the attributes and collect them
                 if ($node->attributes->length) {
+
                     $a = [];
                     foreach ($node->attributes as $attrName => $attrNode) {
+
                         $a[$attrName] = (string) $attrNode->value;
+
                     }
 
                     // If its an leaf node, store the value in @value instead of directly storing it.
                     if (!is_array($output)) {
+
                         $output = ['@value' => $output];
+
                     }
 
                     $output['@attributes'] = $a;
                 }
+
                 break;
         }
 

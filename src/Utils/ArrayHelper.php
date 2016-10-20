@@ -504,15 +504,22 @@ class ArrayHelper
     public static function sortRecursive($array)
     {
         foreach ($array as &$value) {
+
             if (is_array($value)) {
+
                 $value = static::sortRecursive($value);
+
             }
         }
 
         if (static::isAssoc($array)) {
+
             ksort($array);
+
         } else {
+
             sort($array);
+
         }
 
         return $array;
@@ -555,29 +562,44 @@ class ArrayHelper
     public static function dataGet($target, $key, $default = null)
     {
         if (is_null($key)) {
+
             return $target;
+
         }
 
         $key = is_array($key) ? $key : explode('.', $key);
 
         while (!is_null($segment = array_shift($key))) {
+
             if ($segment === '*') {
+
                 if ($target instanceof Collection) {
+
                     $target = $target->all();
+
                 } elseif (!is_array($target)) {
+
                     return static::value($default);
+
                 }
+
                 $result = static::pluck($target, $key);
 
                 return in_array('*', $key) ? static::collapse($result) : $result;
             }
 
             if (static::accessible($target) && static::exists($target, $segment)) {
+
                 $target = $target[$segment];
+
             } elseif (is_object($target) && isset($target->{$segment})) {
+
                 $target = $target->{$segment};
+
             } else {
+
                 return static::value($default);
+
             }
         }
 
