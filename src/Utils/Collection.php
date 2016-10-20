@@ -1309,7 +1309,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Get a value retrieving callback.
      *
-     * @param callable|string $value
+     * @param mixed $value
      *
      * @return callable
      */
