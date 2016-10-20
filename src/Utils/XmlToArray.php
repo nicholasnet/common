@@ -73,6 +73,7 @@ class XmlToArray
             $xml = $class->xml = $inputXml;
         }
 
+        $array = [];
         $array[$xml->documentElement->tagName] = $class->convert($xml->documentElement);
 
         return $array;
@@ -100,7 +101,6 @@ class XmlToArray
                 break;
 
             case XML_ELEMENT_NODE:
-
                 // for each child node, call the covert function recursively
                 for ($i = 0, $m = $node->childNodes->length; $i < $m; $i++) {
                     $child = $node->childNodes->item($i);
