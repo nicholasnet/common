@@ -56,7 +56,7 @@ class XmlToArray
 
             $parsed = $xml->loadXML($inputXml);
 
-            if (!$parsed) {
+            if (! $parsed) {
 
                 throw new \Exception('[XML2Array] Error parsing the XML string.');
 
@@ -111,7 +111,7 @@ class XmlToArray
                         $t = $child->tagName;
 
                         // assume more nodes of same kind are coming
-                        if (!isset($output[$t])) {
+                        if (! isset($output[$t])) {
 
                             $output[$t] = [];
 
@@ -161,7 +161,7 @@ class XmlToArray
                     }
 
                     // If its an leaf node, store the value in @value instead of directly storing it.
-                    if (!is_array($output)) {
+                    if (! is_array($output)) {
 
                         $output = ['@value' => $output];
 

@@ -71,7 +71,7 @@ class SparkPost extends AbstractTransport
             ],
         ];
 
-        if (!empty($this->options)) {
+        if (! empty($this->options)) {
 
             $options['json']['options'] = $this->options;
 
@@ -82,13 +82,13 @@ class SparkPost extends AbstractTransport
             $campaignId = $message->getCampaignId();
             $description = $message->getDescription();
 
-            if (!empty($campaignId)) {
+            if (! empty($campaignId)) {
 
                 $options['json']['campaign_id'] = $campaignId;
 
             }
 
-            if (!empty($description)) {
+            if (! empty($description)) {
 
                 $options['json']['description'] = $description;
 

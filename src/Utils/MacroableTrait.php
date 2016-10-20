@@ -53,7 +53,7 @@ trait MacroableTrait
      */
     public static function __callStatic($method, $parameters)
     {
-        if (!static::hasMacro($method)) {
+        if (! static::hasMacro($method)) {
 
             throw new \BadMethodCallException("Method {$method} does not exist.");
 
@@ -80,7 +80,7 @@ trait MacroableTrait
      */
     public function __call($method, $parameters)
     {
-        if (!static::hasMacro($method)) {
+        if (! static::hasMacro($method)) {
 
             throw new \BadMethodCallException("Method {$method} does not exist.");
 

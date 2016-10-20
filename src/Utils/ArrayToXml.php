@@ -122,7 +122,7 @@ class ArrayToXml
             // recurse to get the node for that key
             foreach ($arr as $key => $value) {
 
-                if (!$this->isValidTagName($key)) {
+                if (! $this->isValidTagName($key)) {
 
                     throw new \Exception(__CLASS__.' Illegal character in tag name. tag: '.$key.' in node: '.$nodeName);
 
@@ -201,7 +201,7 @@ class ArrayToXml
     {
         foreach ($data['@attributes'] as $key => $value) {
 
-            if (!$this->isValidTagName($key)) {
+            if (! $this->isValidTagName($key)) {
 
                 throw new \Exception(__CLASS__.' Illegal character in attribute name. attribute: '.$key.' in node: '.$nodeName);
 

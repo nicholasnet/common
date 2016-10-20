@@ -546,7 +546,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 
             $groupKeys = $groupBy($value, $key);
 
-            if (!is_array($groupKeys)) {
+            if (! is_array($groupKeys)) {
 
                 $groupKeys = [$groupKeys];
 
@@ -554,7 +554,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 
             foreach ($groupKeys as $groupKey) {
 
-                if (!array_key_exists($groupKey, $results)) {
+                if (! array_key_exists($groupKey, $results)) {
 
                     $results[$groupKey] = new static();
 
@@ -999,7 +999,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function search($value, $strict = false)
     {
-        if (!$this->useAsCallable($value)) {
+        if (! $this->useAsCallable($value)) {
 
             return array_search($value, $this->items, $strict);
 
