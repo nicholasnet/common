@@ -1,6 +1,6 @@
 filter:
     paths: [src/*]
-    excluded_paths: [vendor/*, tests/*, src/Utils/Collection.php, src/Utils/ArrayHelper.php]
+    excluded_paths: [vendor/*, tests/*]
 
 checks:
     php:
