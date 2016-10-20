@@ -2,11 +2,14 @@
 
 namespace IdeasBucket\Common\Utils;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'test.php';
-
 class MacroableTraitTest extends \PHPUnit_Framework_TestCase
 {
     private $macroable;
+
+    static function test() {
+
+        return 'test';
+    }
 
     public function setUp()
     {
@@ -22,38 +25,38 @@ class MacroableTraitTest extends \PHPUnit_Framework_TestCase
     {
         $macroable = $this->macroable;
         $macroable::macro(__CLASS__, function () {
+
             return 'Taylor';
+
         });
 
         $this->assertEquals('Taylor', $macroable::{__CLASS__}());
-
-        $macroable = $this->macroable;
-        $macroable::macro('testStatic', 'TEST_TEST_TEST');
-
-        $this->assertEquals('test', $macroable::testStatic());
     }
 
     public function testRegisterMacroAndCallWithoutStatic()
     {
         $macroable = $this->macroable;
         $macroable::macro(__CLASS__, function () {
+
             return 'Taylor';
+
         });
+
         $this->assertEquals('Taylor', $macroable->{__CLASS__}());
-
-        $macroable::macro('test', 'TEST_TEST_TEST');
-
-        $this->assertEquals('test', $macroable::test());
     }
 
     public function testWhenCallingMacroClosureIsBoundToObject()
     {
         TestMacroable::macro('tryInstance', function () {
+
             return $this->protectedVariable;
+
         });
 
         TestMacroable::macro('tryStatic', function () {
+
             return static::getProtectedStatic();
+
         });
 
         $instance = new TestMacroable();
