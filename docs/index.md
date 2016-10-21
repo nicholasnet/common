@@ -2,7 +2,7 @@
 * Utils
   * ArrayHelper
   * ArrayToXml
-  * Collection
+  * [Collection](Utils/Collection.md)
   * Encrypter
   * StringHelper
   * XmlToArray
