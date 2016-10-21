@@ -35,8 +35,6 @@ Creating a collection is as simple as:
 
 For the remainder of this documentation, we'll discuss each method available on the `Collection` class. Remember, all of these methods may be chained to fluently manipulating the underlying array. Furthermore, almost every method returns a new `Collection` instance, allowing you to preserve the original copy of the collection when necessary:
 
-## Method Listing
-
                  |                            |                  |
  ----------------- | ---------------------------- | ------------------
 | [all](#method-all) | [avg](#method-avg)  | [chunk](#method-chunk)  |
@@ -62,6 +60,8 @@ For the remainder of this documentation, we'll discuss each method available on 
 | [unique](#method-unique)  | [values](#method-values)  | [where](#method-where)  |
 | [whereStrict](#method-wherestrict)  | [whereIn](#method-wherein)  | [whereInLoose](#method-whereinloose)  |
 | [zip](#method-zip) | |
+
+## Method Listing
 
 <a name="method-all"></a>
 #### `all()`
