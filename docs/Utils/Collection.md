@@ -7,7 +7,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is the copy of Laravel Collection package. You can find more [here](https://laravel.com/docs/5.3/eloquent-collections).
+#### This class is the copy of Laravel Collection package. You can find more information [here](https://laravel.com/docs/5.3/eloquent-collections).
 
 The `IdeasBucket\Common\Utils\Collection` class provides a fluent, convenient wrapper for working with arrays of data. For example, check out the following code. We'll use the `collect` helper to create a new collection instance from the array, run the `strtoupper` function on each element, and then remove all empty elements:
 
