@@ -1,4 +1,5 @@
 # Collection
+Back to [index](../index.md)
 
 - [Introduction](#introduction)
     - [Creating Collections](#creating-collections)
