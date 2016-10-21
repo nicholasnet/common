@@ -1,6 +1,6 @@
 # Documentation
 * Utils
-  * ArrayHelper
+  * [ArrayHelper](Utils/ArrayHelper.md)
   * ArrayToXml
   * [Collection](Utils/Collection.md)
   * Encrypter
