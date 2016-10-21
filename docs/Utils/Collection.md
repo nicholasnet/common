@@ -45,7 +45,7 @@ For the remainder of this documentation, we'll discuss each method available on 
     }
 </style>
 
-<div id="collection-method-list" markdown="1">
+<div id="collection-method-list">
 
 [all](#method-all)
 [avg](#method-avg)
