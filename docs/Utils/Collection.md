@@ -35,77 +35,35 @@ Creating a collection is as simple as:
 
 For the remainder of this documentation, we'll discuss each method available on the `Collection` class. Remember, all of these methods may be chained to fluently manipulating the underlying array. Furthermore, almost every method returns a new `Collection` instance, allowing you to preserve the original copy of the collection when necessary:
 
-* [all](#method-all)
-* [avg](#method-avg)
-* [chunk](#method-chunk)
-* [collapse](#method-collapse)
-* [combine](#method-combine)
-* [contains](#method-contains)
-* [count](#method-count)
-* [diff](#method-diff)
-* [diffKeys](#method-diffkeys)
-* [each](#method-each)
-* [every](#method-every)
-* [except](#method-except)
-* [filter](#method-filter)
-* [first](#method-first)
-* [flatMap](#method-flatmap)
-* [flatten](#method-flatten)
-* [flip](#method-flip)
-* [forget](#method-forget)
-* [forPage](#method-forpage)
-* [get](#method-get)
-* [groupBy](#method-groupby)
-* [has](#method-has)
-* [implode](#method-implode)
-* [intersect](#method-intersect)
-* [isEmpty](#method-isempty)
-* [keyBy](#method-keyby)
-* [keys](#method-keys)
-* [last](#method-last)
-* [map](#method-map)
-* [mapWithKeys](#method-mapwithkeys)
-* [max](#method-max)
-* [merge](#method-merge)
-* [min](#method-min)
-* [only](#method-only)
-* [pipe](#method-pipe)
-* [pluck](#method-pluck)
-* [pop](#method-pop)
-* [prepend](#method-prepend)
-* [pull](#method-pull)
-* [push](#method-push)
-* [put](#method-put)
-* [random](#method-random)
-* [reduce](#method-reduce)
-* [reject](#method-reject)
-* [reverse](#method-reverse)
-* [search](#method-search)
-* [shift](#method-shift)
-* [shuffle](#method-shuffle)
-* [slice](#method-slice)
-* [sort](#method-sort)
-* [sortBy](#method-sortby)
-* [sortByDesc](#method-sortbydesc)
-* [splice](#method-splice)
-* [split](#method-split)
-* [sum](#method-sum)
-* [take](#method-take)
-* [toArray](#method-toarray)
-* [toJson](#method-tojson)
-* [transform](#method-transform)
-* [union](#method-union)
-* [unique](#method-unique)
-* [values](#method-values)
-* [where](#method-where)
-* [whereStrict](#method-wherestrict)
-* [whereIn](#method-wherein)
-* [whereInLoose](#method-whereinloose)
-* [zip](#method-zip)
-
-
 ## Method Listing
 
+                 |                            |                  |
+ ----------------- | ---------------------------- | ------------------
+| [all](#method-all) | [avg](#method-avg)  | [chunk](#method-chunk)  |
+| [collapse](#method-collapse)  | [combine](#method-combine)  | [contains](#method-contains)  |
+| [count](#method-count)  | [diff](#method-diff)  | [diffKeys](#method-diffkeys)  |
+| [each](#method-each)  | [every](#method-every)  | [except](#method-except)  |
+| [filter](#method-filter)  | [first](#method-first)  | [flatMap](#method-flatmap)  |
+| [flatten](#method-flatten)  | [flip](#method-flip)  | [forget](#method-forget)  |
+| [forPage](#method-forpage)  | [get](#method-get)  | [groupBy](#method-groupby)  |
+| [has](#method-has)  | [implode](#method-implode)  | [intersect](#method-intersect)  |
+| [isEmpty](#method-isempty)  | [keyBy](#method-keyby)  | [keys](#method-keys)  |
+| [last](#method-last)  | [map](#method-map)  | [mapWithKeys](#method-mapwithkeys)  |
+| [max](#method-max)  | [merge](#method-merge)  | [min](#method-min)  |
+| [only](#method-only)  | [pipe](#method-pipe)  | [pluck](#method-pluck)  |
+| [pop](#method-pop)  | [prepend](#method-prepend)  | [pull](#method-pull)  |
+| [push](#method-push)  | [put](#method-put)  | [random](#method-random)  |
+| [reduce](#method-reduce)  | [reject](#method-reject)  | [reverse](#method-reverse)  |
+| [search](#method-search)  | [shift](#method-shift)  | [shuffle](#method-shuffle)  |
+| [slice](#method-slice)  | [sort](#method-sort)  | [sortBy](#method-sortby)  |
+| [sortByDesc](#method-sortbydesc)  | [splice](#method-splice)  | [split](#method-split)  |
+| [sum](#method-sum)  | [take](#method-take)  | [toArray](#method-toarray)  |
+| [toJson](#method-tojson)  | [transform](#method-transform)  | [union](#method-union)  |
+| [unique](#method-unique)  | [values](#method-values)  | [where](#method-where)  |
+| [whereStrict](#method-wherestrict)  | [whereIn](#method-wherein)  | [whereInLoose](#method-whereinloose)  |
+| [zip](#method-zip) | |
+
+<a name="method-all"></a>
 #### `all()`
 
 The `all` method returns the underlying array represented by the collection:
@@ -146,14 +104,6 @@ The `chunk` method breaks the collection into multiple, smaller collections of a
     $chunks->toArray();
 
     // [[1, 2, 3, 4], [5, 6, 7]]
-
-    @foreach ($products->chunk(3) as $chunk)
-        <div class="row">
-            @foreach ($chunk as $product)
-                <div class="col-xs-4">{{ $product->name }}</div>
-            @endforeach
-        </div>
-    @endforeach
 
 <a name="method-collapse"></a>
 #### `collapse()`
