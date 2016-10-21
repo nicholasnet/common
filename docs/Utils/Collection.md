@@ -33,17 +33,6 @@ Creating a collection is as simple as:
 ## Available Methods
 
 For the remainder of this documentation, we'll discuss each method available on the `Collection` class. Remember, all of these methods may be chained to fluently manipulating the underlying array. Furthermore, almost every method returns a new `Collection` instance, allowing you to preserve the original copy of the collection when necessary:
-<style>
-    #collection-method-list > p {
-        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;
-        column-gap: 2em; -moz-column-gap: 2em; -webkit-column-gap: 2em;
-    }
-
-    #collection-method-list a {
-        display: block;
-    }
-</style>
-<div id="collection-method-list">
 
 [all](#method-all)
 [avg](#method-avg)
@@ -113,7 +102,7 @@ For the remainder of this documentation, we'll discuss each method available on 
 [whereInLoose](#method-whereinloose)
 [zip](#method-zip)
 
-</div>
+
 ## Method Listing
 
 #### `all()`
