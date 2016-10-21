@@ -21,4 +21,4 @@ There is no external library dependency to run this package.
 
 ---
 
-[Documentation](https://nicholasnet.github.io/common/)
+[Documentation](docs/index.md)

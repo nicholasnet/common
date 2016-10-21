@@ -6,6 +6,4 @@
   * Encrypter
   * StringHelper
   * XmlToArray
-   
-## ArrayHelper
 
