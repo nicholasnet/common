@@ -21,6 +21,7 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
             'nest' => [
                 'nest' => [
                     'nest' => [
+                        '@attributes' => ['type' => 'test'],
                         'nest' => 'bazingaaa!!!!',
                     ],
                 ],
@@ -34,7 +35,7 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
                     <nest>
                         <nest>
                             <nest>
-                                <nest>
+                                <nest type="test">
                                     <nest>bazingaaa!!!!</nest>
                                 </nest>
                             </nest>
