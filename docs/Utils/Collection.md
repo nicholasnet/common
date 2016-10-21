@@ -120,18 +120,7 @@ For the remainder of this documentation, we'll discuss each method available on 
 <a name="method-listing"></a>
 ## Method Listing
 
-<style>
-    #collection-method code {
-        font-size: 14px;
-    }
-
-    #collection-method:not(.first-collection-method) {
-        margin-top: 50px;
-    }
-</style>
-
-<a name="method-all"></a>
-#### `all()` {#collection-method .first-collection-method}
+#### `all()`
 
 The `all` method returns the underlying array represented by the collection:
 
