@@ -53,9 +53,13 @@ class Mandrill extends AbstractTransport
         ];
 
         if (version_compare(ClientInterface::VERSION, '6') === 1) {
+
             $options = ['form_params' => $data];
+
         } else {
+
             $options = ['body' => $data];
+
         }
 
         $this->client->post('https://mandrillapp.com/api/1.0/messages/send-raw.json', $options);
@@ -77,15 +81,21 @@ class Mandrill extends AbstractTransport
         $to = [];
 
         if ($message->getTo()) {
+
             $to = array_merge($to, array_keys($message->getTo()));
+
         }
 
         if ($message->getCc()) {
+
             $to = array_merge($to, array_keys($message->getCc()));
+
         }
 
         if ($message->getBcc()) {
+
             $to = array_merge($to, array_keys($message->getBcc()));
+
         }
 
         return $to;

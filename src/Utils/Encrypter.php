@@ -5,7 +5,7 @@ namespace IdeasBucket\Common\Utils;
 /**
  * Class Encrypter.
  *
- * @see     https://github.com/laravel/framework/blob/5.3/LICENSE.md
+ * @see  https://github.com/laravel/framework/blob/5.3/LICENSE.md
  */
 class Encrypter implements EncrypterInterface
 {
@@ -45,10 +45,14 @@ class Encrypter implements EncrypterInterface
         $key = (string) $key;
 
         if (static::supported($key, $cipher)) {
+
             $this->key = $key;
             $this->cipher = $cipher;
+
         } else {
+
             throw new \RuntimeException('The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths.');
+
         }
 
         $this->allowCryptographicallyInsecureRandom = $allowCryptographicallyInsecureRandom;
@@ -85,18 +89,21 @@ class Encrypter implements EncrypterInterface
         $value = openssl_encrypt(serialize($value), $this->cipher, $this->key, 0, $iv);
 
         if ($value === false) {
+
             throw new EncryptException('Could not encrypt the data.');
+
         }
 
         // Once we have the encrypted value we will go ahead base64_encode the input
         // vector and create the MAC for the encrypted value so we can verify its
         // authenticity. Then, we'll JSON encode the data in a "payload" array.
         $mac = $this->hash($iv = base64_encode($iv), $value);
-
         $json = json_encode(compact('iv', 'value', 'mac'));
 
-        if (!is_string($json)) {
+        if (! is_string($json)) {
+
             throw new EncryptException('Could not encrypt the data.');
+
         }
 
         return base64_encode($json);
@@ -114,13 +121,13 @@ class Encrypter implements EncrypterInterface
     public function decrypt($payload)
     {
         $payload = $this->getJsonPayload($payload);
-
         $iv = base64_decode($payload['iv']);
-
         $decrypted = \openssl_decrypt($payload['value'], $this->cipher, $this->key, 0, $iv);
 
         if ($decrypted === false) {
+
             throw new DecryptException('Could not decrypt the data.');
+
         }
 
         return unserialize($decrypted);
@@ -155,12 +162,16 @@ class Encrypter implements EncrypterInterface
         // If the payload is not valid JSON or does not have the proper keys set we will
         // assume it is invalid and bail out of the routine since we will not be able
         // to decrypt the given value. We'll also check the MAC for this encryption.
-        if (!$this->validPayload($payload)) {
+        if (! $this->validPayload($payload)) {
+
             throw new DecryptException('The payload is invalid.');
+
         }
 
-        if (!$this->validMac($payload)) {
+        if (! $this->validMac($payload)) {
+
             throw new DecryptException('The MAC is invalid.');
+
         }
 
         return $payload;
@@ -188,7 +199,6 @@ class Encrypter implements EncrypterInterface
     protected function validMac(array $payload)
     {
         $bytes = $this->getRandomBytes(16);
-
         $calcMac = hash_hmac('sha256', $this->hash($payload['iv'], $payload['value']), $bytes, true);
 
         return hash_equals(hash_hmac('sha256', $payload['mac'], $bytes, true), $calcMac);
@@ -217,30 +227,36 @@ class Encrypter implements EncrypterInterface
     public function getRandomBytes($length)
     {
         if (function_exists('random_bytes')) {
+
             return random_bytes($length);
+
         }
 
         if (function_exists('openssl_random_pseudo_bytes')) {
+
             $bytes = openssl_random_pseudo_bytes($length, $strongSource);
 
             if ($strongSource === false) {
+
                 throw new EncryptException(
                     'openssl was unable to use a strong source of entropy. '.
                     'Consider updating your system libraries, or ensuring '.
                     'you have more available entropy.'
                 );
+
             }
 
             return $bytes;
         }
 
         if ($this->allowCryptographicallyInsecureRandom === false) {
+
             throw new EncryptException(
                 'You do not have a safe source of random data available. '.
                 'Install either the openssl extension, or paragonie/random_compat.'
             );
-        }
 
+        }
 
         return $this->insecureRandomBytes($length);
     }
@@ -261,8 +277,10 @@ class Encrypter implements EncrypterInterface
         $byteLength = 0;
 
         while ($byteLength < $length) {
+
             $bytes .= $this->hash(StringHelper::uuid().uniqid(mt_rand(), true), 'sha512');
             $byteLength = strlen($bytes);
+
         }
 
         $bytes = substr($bytes, 0, $length);

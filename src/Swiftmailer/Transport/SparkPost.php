@@ -71,20 +71,27 @@ class SparkPost extends AbstractTransport
             ],
         ];
 
-        if (!empty($this->options)) {
+        if (! empty($this->options)) {
+
             $options['json']['options'] = $this->options;
+
         }
 
         if ($message instanceof TrackedMessage) {
+
             $campaignId = $message->getCampaignId();
             $description = $message->getDescription();
 
-            if (!empty($campaignId)) {
+            if (! empty($campaignId)) {
+
                 $options['json']['campaign_id'] = $campaignId;
+
             }
 
-            if (!empty($description)) {
+            if (! empty($description)) {
+
                 $options['json']['description'] = $description;
+
             }
         }
 
@@ -107,19 +114,27 @@ class SparkPost extends AbstractTransport
         $to = [];
 
         if ($message->getTo()) {
+
             $to = array_merge($to, array_keys($message->getTo()));
+
         }
 
         if ($message->getCc()) {
+
             $to = array_merge($to, array_keys($message->getCc()));
+
         }
 
         if ($message->getBcc()) {
+
             $to = array_merge($to, array_keys($message->getBcc()));
+
         }
 
         $recipients = array_map(function ($address) {
+
             return compact('address');
+
         }, $to);
 
         return $recipients;
