@@ -101,6 +101,7 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('Laravel is...', StringHelper::truncate('Laravel is a free, open source PHP web application framework.', 10));
         $this->assertEquals('这是一...', StringHelper::truncate('这是一段中文', 6));
+        $this->assertEquals('test', StringHelper::truncate('test', 6));
     }
 
     public function testSlug()

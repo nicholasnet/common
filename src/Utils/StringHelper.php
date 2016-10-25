@@ -54,11 +54,14 @@ class StringHelper
 
         // Remove all characters that are not the separator, letters, numbers, or whitespace.
         if ($convertCase) {
-            $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($title));
-        } else {
-            $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', $title);
-        }
 
+            $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($title));
+
+        } else {
+
+            $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', $title);
+
+        }
 
         // Replace all separator characters and whitespace by a single separator
         $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
@@ -99,7 +102,9 @@ class StringHelper
     public static function truncate($value, $limit = 100, $end = '...')
     {
         if (mb_strwidth($value, 'UTF-8') <= $limit) {
+
             return $value;
+
         }
 
         return rtrim(mb_strimwidth($value, 0, $limit, '', 'UTF-8')).$end;
@@ -141,7 +146,9 @@ class StringHelper
     public static function ascii($value)
     {
         foreach (static::charsArray() as $key => $val) {
+
             $value = str_replace($val, $key, $value);
+
         }
 
         return preg_replace('/[^\x20-\x7E]/u', '', $value);
@@ -161,7 +168,9 @@ class StringHelper
     public static function ordinalize($number)
     {
         if (in_array($number % 100, range(11, 13))) {
+
             return $number.'th';
+
         }
 
         switch ($number % 10) {
@@ -192,7 +201,9 @@ class StringHelper
     public static function camelCase($word)
     {
         if (isset(static::$camelCache[$word])) {
+
             return static::$camelCache[$word];
+
         }
 
         return static::$camelCache[$word] = lcfirst(static::studlyCase($word));
@@ -214,7 +225,9 @@ class StringHelper
         $key = $value;
 
         if (isset(static::$studlyCache[$key])) {
+
             return static::$studlyCache[$key];
+
         }
 
         $value = ucwords(str_replace(['-', '_'], ' ', $value));
@@ -237,8 +250,11 @@ class StringHelper
     public static function endsWith($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
+
             if (substr($haystack, -strlen($needle)) === (string) $needle) {
+
                 return true;
+
             }
         }
 
@@ -260,8 +276,11 @@ class StringHelper
     public static function startsWith($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
+
             if ($needle != '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
+
                 return true;
+
             }
         }
 
@@ -316,7 +335,9 @@ class StringHelper
         static $charsArray;
 
         if (isset($charsArray)) {
+
             return $charsArray;
+
         }
 
         return $charsArray = [

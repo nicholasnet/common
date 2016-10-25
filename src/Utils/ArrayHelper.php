@@ -57,7 +57,7 @@ class ArrayHelper
         foreach ($array as $values) {
             if ($values instanceof Collection) {
                 $values = $values->all();
-            } elseif (!is_array($values)) {
+            } elseif (! is_array($values)) {
                 continue;
             }
 
@@ -195,7 +195,7 @@ class ArrayHelper
         return array_reduce($array, function ($result, $item) use ($depth) {
             $item = $item instanceof Collection ? $item->all() : $item;
 
-            if (!is_array($item)) {
+            if (! is_array($item)) {
                 return array_merge($result, [$item]);
             } elseif ($depth === 1) {
                 return array_merge($result, array_values($item));
@@ -261,7 +261,7 @@ class ArrayHelper
      */
     public static function get($array, $key, $default = null)
     {
-        if (!static::accessible($array)) {
+        if (! static::accessible($array)) {
             return static::value($default);
         }
 
@@ -300,7 +300,7 @@ class ArrayHelper
 
         $keys = (array) $keys;
 
-        if (!$array) {
+        if (! $array) {
             return false;
         }
 
@@ -469,7 +469,7 @@ class ArrayHelper
             // If the key doesn't exist at this depth, we will just create an empty array
             // to hold the next value, allowing us to create the arrays to hold final
             // values at the correct depth. Then we'll keep digging into the array.
-            if (!isset($array[$key]) || !is_array($array[$key])) {
+            if (! isset($array[$key]) || !is_array($array[$key])) {
                 $array[$key] = [];
             }
 
@@ -504,15 +504,22 @@ class ArrayHelper
     public static function sortRecursive($array)
     {
         foreach ($array as &$value) {
+
             if (is_array($value)) {
+
                 $value = static::sortRecursive($value);
+
             }
         }
 
         if (static::isAssoc($array)) {
+
             ksort($array);
+
         } else {
+
             sort($array);
+
         }
 
         return $array;
@@ -555,29 +562,44 @@ class ArrayHelper
     public static function dataGet($target, $key, $default = null)
     {
         if (is_null($key)) {
+
             return $target;
+
         }
 
         $key = is_array($key) ? $key : explode('.', $key);
 
-        while (!is_null($segment = array_shift($key))) {
+        while (! is_null($segment = array_shift($key))) {
+
             if ($segment === '*') {
+
                 if ($target instanceof Collection) {
+
                     $target = $target->all();
-                } elseif (!is_array($target)) {
+
+                } elseif (! is_array($target)) {
+
                     return static::value($default);
+
                 }
+
                 $result = static::pluck($target, $key);
 
                 return in_array('*', $key) ? static::collapse($result) : $result;
             }
 
             if (static::accessible($target) && static::exists($target, $segment)) {
+
                 $target = $target[$segment];
+
             } elseif (is_object($target) && isset($target->{$segment})) {
+
                 $target = $target->{$segment};
+
             } else {
+
                 return static::value($default);
+
             }
         }
 
