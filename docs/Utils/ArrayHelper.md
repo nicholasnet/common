@@ -28,7 +28,7 @@ ArrayHelper provides convenient methods to manipulate the array.
 * [pull](#method-array-pull)
 * [set](#method-array-set)
 * [sort](#method-array-sort)
-* [sort_recursive](#method-array-sort-recursive)
+* [sortRecursive](#method-array-sort-recursive)
 * [where](#method-array-where)
 * [head](#method-head)
 * [last](#method-last)
@@ -117,7 +117,7 @@ The `forget` function removes a given key / value pair from a deeply nested arra
 
     $array = ['products' => ['desk' => ['price' => 100]]];
 
-    array_forget($array, 'products.desk');
+    ArrayHelper::forget($array, 'products.desk');
 
     // ['products' => []]
 
@@ -226,7 +226,7 @@ The `set` function sets a value within a deeply nested array using "dot" notatio
 
     $array = ['products' => ['desk' => ['price' => 100]]];
 
-    array_set($array, 'products.desk.price', 200);
+    ArrayHelper::set($array, 'products.desk.price', 200);
 
     // ['products' => ['desk' => ['price' => 200]]]
 
@@ -240,7 +240,7 @@ The `sort` function sorts the array by the results of the given Closure:
         ['name' => 'Chair'],
     ];
 
-    $array = ArrayHelper::values(array_sort($array, function ($value) {
+    $array = ArrayHelper::values(ArrayHelper::sort($array, function ($value) {
         return $value['name'];
     }));
 
@@ -252,9 +252,9 @@ The `sort` function sorts the array by the results of the given Closure:
     */
 
 <a name="method-array-sort-recursive"></a>
-#### `sort_recursive()`
+#### `sortRecursive()`
 
-The `sort_recursive` function recursively sorts the array using the `sort` function:
+The `sortRecursive` function recursively sorts the array using the `sort` function:
 
     $array = [
         [
@@ -269,7 +269,7 @@ The `sort_recursive` function recursively sorts the array using the `sort` funct
         ],
     ];
 
-    $array = ArrayHelper::sort_recursive($array);
+    $array = ArrayHelper::sortRecursive($array);
 
     /*
         [

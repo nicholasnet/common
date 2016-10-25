@@ -3,7 +3,7 @@
   * [ArrayHelper](Utils/ArrayHelper.md)
   * ArrayToXml
   * [Collection](Utils/Collection.md)
-  * Encrypter
+  * [Encrypter](Utils/Encrypter.md)
   * StringHelper
   * XmlToArray
 
