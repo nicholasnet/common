@@ -4,6 +4,6 @@
   * ArrayToXml
   * [Collection](Utils/Collection.md)
   * [Encrypter](Utils/Encrypter.md)
-  * StringHelper
+  * [StringHelper](Utils/StringHelper.md)
   * XmlToArray
 
