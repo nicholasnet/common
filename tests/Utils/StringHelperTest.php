@@ -104,6 +104,9 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', StringHelper::truncate('test', 6));
     }
 
+    /**
+     * @requires extension intl
+     */
     public function testSlug()
     {
         $this->assertEquals('hello-world', StringHelper::slug('hello world'));
@@ -115,11 +118,12 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider toAsciiProvider()
+     * @requires extension intl
      */
     public function testToAscii($string, $transliteratorId, $expected)
     {
         $result = StringHelper::ascii($string, $transliteratorId);
-        $this->assertEquals($expected, $result);;
+        $this->assertEquals($expected, $result);
     }
 
     public function toAsciiProvider()
