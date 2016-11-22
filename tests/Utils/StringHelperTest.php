@@ -116,31 +116,51 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider toAsciiProvider()
      */
-    public function testToAscii($expected, $str)
+    public function testToAscii($string, $transliteratorId, $expected)
     {
-        $result = StringHelper::ascii($str);
-        $this->assertEquals($expected, $result);
+        $result = StringHelper::ascii($string, $transliteratorId);
+        $this->assertEquals($expected, $result);;
     }
 
     public function toAsciiProvider()
     {
         return [
-            ['foo bar', 'fòô bàř'],
-            [' TEST ', ' ŤÉŚŢ '],
-            ['f = z = 3', 'φ = ź = 3'],
-            ['perevirka', 'перевірка'],
-            ['lysaya gora', 'лысая гора'],
-            ['shchuka', 'щука'],
-            ['', '漢字'],
-            ['xin chao the gioi', 'xin chào thế giới'],
-            ['XIN CHAO THE GIOI', 'XIN CHÀO THẾ GIỚI'],
-            ['dam phat chet luon', 'đấm phát chết luôn'],
-            [' ', ' '], // no-break space (U+00A0)
-            ['           ', '           '], // spaces U+2000 to U+200A
-            [' ', ' '], // narrow no-break space (U+202F)
-            [' ', ' '], // medium mathematical space (U+205F)
-            [' ', '　'], // ideographic space (U+3000)
-            ['', '𐍉'], // some uncommon, unsupported character (U+10349)
+            [
+                'Foo Bar: Not just for breakfast any-more', null,
+                'Foo Bar: Not just for breakfast any-more'
+            ],
+            [
+                'A æ Übérmensch på høyeste nivå! И я люблю PHP! ест. ﬁ ¦', null,
+                'A ae Ubermensch pa hoyeste niva! I a lublu PHP! est. fi '
+            ],
+            [
+                'Äpfel Über Öl grün ärgert groß öko', null,
+                'Apfel Uber Ol grun argert gross oko'
+            ],
+            [
+                'La langue française est un attribut de souveraineté en France', null,
+                'La langue francaise est un attribut de souverainete en France'
+            ],
+            [
+                '!@$#exciting stuff! - what !@-# was that?', null,
+                '!@$#exciting stuff! - what !@-# was that?'
+            ],
+            [
+                'controller/action/りんご/1', null,
+                'controller/action/ringo/1'
+            ],
+            [
+                'の話が出たので大丈夫かなあと', null,
+                'no huaga chutanode da zhang fukanaato'
+            ],
+            [
+                'posts/view/한국어/page:1/sort:asc', null,
+                'posts/view/hangug-eo/page:1/sort:asc'
+            ],
+            [
+                "non\xc2\xa0breaking\xc2\xa0space", null,
+                'non breaking space'
+            ]
         ];
     }
 }
