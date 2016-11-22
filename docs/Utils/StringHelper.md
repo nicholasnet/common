@@ -11,6 +11,7 @@ Back to [index](../index.md)
 <a name="available-methods"></a>
 ## Available Methods
 * [ascii](#ascii)
+* [classBasename](#class-basename)
 * [slug](#method-slug)
 * [truncate](#method-truncate)
 * [ordinalize](#method-ordinalize)
@@ -30,7 +31,15 @@ The `ascii` by default converts all characters in provided string into equivalen
     // Ubermensch (only latin characters are transliterated)
     StringHelper::ascii('Übérmensch', 'Latin-ASCII;');
     
+<a name="method-class-basename"></a>
+#### `classBasename()`
 
+The `classBasename` returns the class name of the given class with the class' namespace removed:
+
+    $class = StringHelper::classBasename('Foo\Bar\Baz');
+
+    // Baz
+    
 <a name="method-slug"></a>
 #### `slug()`
 The `slug` function generates a URL friendly "slug" from the given string:

@@ -31,6 +31,24 @@ class StringHelper
     protected static $studlyCache = [];
 
     /**
+     * Get the class "basename" of the given object / class.
+     *
+     * Note: Adapted from Laravel Framework.
+     *
+     * @see https://github.com/laravel/framework/blob/5.3/LICENSE.md
+     *
+     * @param  string|object  $class
+     *
+     * @return string
+     */
+    public function classBasename($class)
+    {
+        $class = is_object($class) ? get_class($class) : $class;
+
+        return basename(str_replace('\\', '/', $class));
+    }
+
+    /**
      * Generate a URL friendly "slug" from a given string.
      *
      * Note: Adapted from Laravel Framework.
