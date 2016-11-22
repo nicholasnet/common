@@ -29,7 +29,7 @@
     }
   },
   "suggest": {
-    "ext-intl": "To use StringHelper::ascii() or Text::slug()"
+    "ext-intl": "To use StringHelper::ascii() or StringHelper::slug()"
   },
   "minimum-stability": "dev"
 }
