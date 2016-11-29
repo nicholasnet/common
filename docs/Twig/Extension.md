@@ -7,9 +7,9 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-This Twig extension allows several filters that can be used in Twig template. 
+This Twig extension provides several filters that can be used in Twig template. 
 
-**Remember though this package contains Twig extension it does not mean you will need to install Twig. You only need to install it if you want to use it.**
+**Please Note: This package contains Twig extension it does not mean you will need to install Twig. You only need to install it if you want to use it.**
 
 <a name="setup"></a>
 ## Setup

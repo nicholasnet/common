@@ -1584,7 +1584,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 
         }
 
-        return (array)$items;
+        return (array) $items;
     }
 
     /**
