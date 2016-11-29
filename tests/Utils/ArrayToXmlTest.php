@@ -4,14 +4,14 @@ namespace IdeasBucket\Common\Utils;
 
 class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreateXML()
+    public function testCreateXml()
     {
         $books = '1984 7';
-        $test = ArrayToXml::createXML('test', $books);
+        $test = ArrayToXml::createXml('test', $books);
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?><test>1984 7</test>', $this->stripWhiteSpaceFromDOMDocument($test));
 
         $books = ['@value' => '1984 7'];
-        $test = ArrayToXml::createXML('test', $books);
+        $test = ArrayToXml::createXml('test', $books);
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?><test>1984 7</test>', $this->stripWhiteSpaceFromDOMDocument($test));
     }
 
@@ -28,7 +28,7 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
             ],
         ]];
 
-        $test = ArrayToXml::createXML('test', $nest);
+        $test = ArrayToXml::createXml('test', $nest);
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
                 <test>
                     <type>test</type>
@@ -50,7 +50,7 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
     {
         $nest = ['type' => 'test'];
 
-        $test = ArrayToXml::createXML('test', $nest, '1.0', 'ISO-8859-1');
+        $test = ArrayToXml::createXml('test', $nest, '1.0', 'ISO-8859-1');
         $xml = '<?xml version="1.0" encoding="ISO-8859-1"?><test><type>test</type></test>';
 
         $this->assertEquals($xml, $this->stripWhiteSpaceFromDOMDocument($test));
@@ -75,7 +75,7 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
             ],
         ]];
 
-        $test = ArrayToXml::createXML('test', $nest);
+        $test = ArrayToXml::createXml('test', $nest);
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
                 <test>
@@ -206,7 +206,7 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
             'trivia' => 'Loved by the Greek!',
         ];
 
-        $xml = $this->stripWhiteSpaceFromDOMDocument(ArrayToXml::createXML('restaurant', $restaurant));
+        $xml = $this->stripWhiteSpaceFromDOMDocument(ArrayToXml::createXml('restaurant', $restaurant));
 
         $expectedResult = '<?xml version="1.0" encoding="UTF-8"?>
                             <restaurant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.example.com/schmema.xsd" lastUpdated="2011-09-18T10:52:56+00:00">
@@ -324,7 +324,7 @@ class ArrayToXmlTest extends \PHPUnit_Framework_TestCase
             ],
         ]];
 
-        ArrayToXml::createXML('test', $nest);
+        ArrayToXml::createXml('test', $nest);
     }
 
     private function stripWhiteSpaceFromDOMDocument(\DOMDocument $xml)

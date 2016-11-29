@@ -64,7 +64,7 @@ class XmlToArray
 
         } else {
 
-            if (get_class($inputXml) != 'DOMDocument') {
+            if (get_class($inputXml) !== 'DOMDocument') {
 
                 throw new \Exception('[XML2Array] The input XML object should be of type: DOMDocument.');
 
@@ -154,6 +154,7 @@ class XmlToArray
                 if ($node->attributes->length) {
 
                     $a = [];
+
                     foreach ($node->attributes as $attrName => $attrNode) {
 
                         $a[$attrName] = (string) $attrNode->value;
