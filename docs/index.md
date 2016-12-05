@@ -9,5 +9,5 @@
 * Twig
   * [Extension](Utils/Extension.md)
 * SwiftMailer
-  * [Transports](Utils/Swiftmailer/Transports.md)
+  * [Transports](Swiftmailer/Swiftmailer/Transports.md)
 
