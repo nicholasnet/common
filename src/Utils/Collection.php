@@ -1630,48 +1630,4 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         return $value instanceof \Closure ? $value() : $value;
     }
-
-    /**
-     * @param $key
-     *
-     * @return HigherOrderCollectionProxy
-     *
-     * @throws \Exception
-     */
-    public function __get($key)
-    {
-        $proxies = ['each', 'map', 'first', 'sortBy', 'sortByDesc', 'sum', 'reject', 'filter'];
-
-        if (!in_array($key, $proxies)) {
-
-            throw new \Exception("Property [{$key}] does not exist on this collection instance.");
-
-        }
-
-        return new HigherOrderCollectionProxy($this, $key);
-    }
-
-    /**
-     * Return the given object. Useful for chaining.
-     *
-     * @param mixed $object
-     *
-     * @return mixed
-     */
-    public function with($object)
-    {
-        return $object;
-    }
-
-    /**
-     * Return the default value of the given value.
-     *
-     * @param $value
-     *
-     * @return mixed
-     */
-    public static function value($value)
-    {
-        return $value instanceof \Closure ? $value() : $value;
-    }
 }
