@@ -10,4 +10,3 @@
   * [Extension](Utils/Extension.md)
 * SwiftMailer
   * [Transports](Swiftmailer/Transports.md)
-
