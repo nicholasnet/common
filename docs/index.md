@@ -1,7 +1,7 @@
 # Documentation
 * Utils
   * [ArrayHelper](Utils/ArrayHelper.md)
-  * [ArrayToXml](Utils/ArrayToXml)
+  * [ArrayToXml](Utils/ArrayToXml.md)
   * [Collection](Utils/Collection.md)
   * [Encrypter](Utils/Encrypter.md)
   * [StringHelper](Utils/StringHelper.md)

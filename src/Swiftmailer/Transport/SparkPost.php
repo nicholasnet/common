@@ -16,7 +16,7 @@ class SparkPost extends AbstractTransport
     /**
      * Guzzle client instance.
      *
-     * @var ClientInterface
+     * @var \GuzzleHttp\ClientInterface
      */
     protected $client;
 
@@ -37,9 +37,9 @@ class SparkPost extends AbstractTransport
     /**
      * Create a new SparkPost transport instance.
      *
-     * @param ClientInterface $client
-     * @param string          $key
-     * @param array           $options
+     * @param  \GuzzleHttp\ClientInterface  $client
+     * @param  string  $key
+     * @param  array  $options
      */
     public function __construct(ClientInterface $client, $key, $options = [])
     {
@@ -60,18 +60,11 @@ class SparkPost extends AbstractTransport
         $message->setBcc([]);
 
         $options = [
-            'headers' => [
-                'Authorization' => $this->key,
-            ],
-            'json'    => [
-                'recipients' => $recipients,
-                'content'    => [
-                    'email_rfc822' => $message->toString(),
-                ],
-            ],
-        ];
+                       'headers' => ['Authorization' => $this->key],
+                       'json' => ['recipients' => $recipients, 'content' => ['email_rfc822' => $message->toString()]]
+                   ];
 
-        if (! empty($this->options)) {
+        if ($this->options) {
 
             $options['json']['options'] = $this->options;
 
@@ -95,7 +88,10 @@ class SparkPost extends AbstractTransport
             }
         }
 
+
         $this->client->post('https://api.sparkpost.com/api/v1/transmissions', $options);
+
+        $this->sendPerformed($message);
 
         return $this->numberOfRecipients($message);
     }
@@ -105,8 +101,7 @@ class SparkPost extends AbstractTransport
      *
      * Note that SparkPost still respects CC, BCC headers in raw message itself.
      *
-     * @param \Swift_Mime_Message $message
-     *
+     * @param  \Swift_Mime_Message $message
      * @return array
      */
     protected function getRecipients(Swift_Mime_Message $message)
@@ -153,12 +148,34 @@ class SparkPost extends AbstractTransport
     /**
      * Set the API key being used by the transport.
      *
-     * @param string $key
+     * @param  string  $key
      *
      * @return string
      */
     public function setKey($key)
     {
         return $this->key = $key;
+    }
+
+    /**
+     * Get the transmission options being used by the transport.
+     *
+     * @return string
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Set the transmission options being used by the transport.
+     *
+     * @param  array  $options
+     *
+     * @return array
+     */
+    public function setOptions(array $options)
+    {
+        return $this->options = $options;
     }
 }
