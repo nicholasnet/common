@@ -35,13 +35,16 @@ class Ses extends AbstractTransport
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
         $this->beforeSendPerformed($message);
+        $headers = $message->getHeaders();
 
-        $this->ses->sendRawEmail([
-            'Source'     => key($message->getSender() ?: $message->getFrom()),
+        $headers->addTextHeader('X-SES-Message-ID', $this->ses->sendRawEmail([
+            'Source' => key($message->getSender() ?: $message->getFrom()),
             'RawMessage' => [
                 'Data' => $message->toString(),
             ],
-        ]);
+        ])->get('MessageId'));
+
+        $this->sendPerformed($message);
 
         return $this->numberOfRecipients($message);
     }

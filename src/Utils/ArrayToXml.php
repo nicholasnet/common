@@ -48,7 +48,7 @@ class ArrayToXml
      *
      * @return \DOMDocument
      */
-    public static function createXML($nodeName, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
+    public static function createXml($nodeName, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
     {
         $class = new self($version, $encoding, $formatOutput);
         $class->xml->appendChild($class->convert($nodeName, $arr));
@@ -69,7 +69,7 @@ class ArrayToXml
      */
     public static function getXmlString($nodeName, $arr = [], $version = '1.0', $encoding = 'UTF-8', $formatOutput = true)
     {
-        return self::createXML($nodeName, $arr, $version, $encoding, $formatOutput)->saveXML();
+        return self::createXml($nodeName, $arr, $version, $encoding, $formatOutput)->saveXML();
     }
 
     /**

@@ -6,7 +6,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is inspired by Laravel, CakePHP3 and YII2 frameworks. You can find more information about YII2 here and Laravel here.
+#### This class is inspired by Laravel, CakePHP 3 and YII2 frameworks.
 
 <a name="available-methods"></a>
 ## Available Methods
@@ -105,7 +105,9 @@ The `startsWith` function determines if the given string begins with the given v
 <a name="method-starts-with"></a>
 #### `uuid()`
 
-The `uuid` generate unique identifiers as per **RFC 4122**. The UUID is a 128-bit string in the format of 485fc381-e790-47a3-9794-1337c0a8fe68:
+The `uuid` generate unique identifiers as per **RFC 4122**. The UUID is a 128-bit string in the format of 485fc381-e790-47a3-9794-1337c0a8fe68: 
+
+**_This method should not be used as a random seed for any cryptographic operations._**
 
     $value = StringHelper::uuid();
     

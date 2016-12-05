@@ -48,8 +48,7 @@ abstract class AbstractTransport implements Swift_Transport
     /**
      * Register a plug-in with the transport.
      *
-     * @param \Swift_Events_EventListener $plugin
-     *
+     * @param  \Swift_Events_EventListener  $plugin
      * @return void
      */
     public function registerPlugin(Swift_Events_EventListener $plugin)
@@ -60,9 +59,7 @@ abstract class AbstractTransport implements Swift_Transport
     /**
      * Iterate through registered plugins and execute plugins' methods.
      *
-     * @param \Swift_Mime_Message $message
-     *
-     * @return void
+     * @param  \Swift_Mime_Message  $message
      */
     protected function beforeSendPerformed(Swift_Mime_Message $message)
     {
@@ -79,10 +76,28 @@ abstract class AbstractTransport implements Swift_Transport
     }
 
     /**
+     * Iterate through registered plugins and execute plugins' methods.
+     *
+     * @param  \Swift_Mime-Message  $message
+     */
+    protected function sendPerformed(Swift_Mime_Message $message)
+    {
+        $event = new Swift_Events_SendEvent($this, $message);
+
+        foreach ($this->plugins as $plugin) {
+
+            if (method_exists($plugin, 'sendPerformed')) {
+
+                $plugin->sendPerformed($event);
+
+            }
+        }
+    }
+
+    /**
      * Get the number of recipients.
      *
-     * @param \Swift_Mime_Message $message
-     *
+     * @param  \Swift_Mime_Message  $message
      * @return int
      */
     protected function numberOfRecipients(Swift_Mime_Message $message)
