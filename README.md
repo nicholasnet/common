@@ -14,10 +14,10 @@ There is no external library dependency to run this package.
 
 ##Installation
 ### Via Composer
-`composer require 'nicholasnet/common'`
+`composer require 'ideasbucket/common'`
 
 ###Direct download
-[Get Package](https://github.com/nicholasnet/common/archive/master.zip) _to download specific version please browse [tags](https://github.com/nicholasnet/common/branches)._
+_To download specific version please browse [releases](https://github.com/nicholasnet/common/releases)._
 
 ---
 
