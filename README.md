@@ -10,7 +10,7 @@ Common utility that can be used in any PHP applications using any framework. Thi
   
 We simply copied those awesome packages and put in this package so that we can use it in any PHP application without bringing down any framework baggage.
  
-There is no external library dependency to run this package.
+There is no external library dependency to run this package except random_bytes polyfill that is used if you are using PHP < v7.
 
 ##Installation
 ### Via Composer

@@ -97,6 +97,14 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(StringHelper::endsWith('7', ' 7'));
     }
 
+    public function testRandom()
+    {
+        $this->assertEquals(16, strlen(StringHelper::random()));
+        $randomInteger = random_int(1, 100);
+        $this->assertEquals($randomInteger, strlen(StringHelper::random($randomInteger)));
+        $this->assertInternalType('string', StringHelper::random());
+    }
+
     public function testTruncate()
     {
         $this->assertEquals('Laravel is...', StringHelper::truncate('Laravel is a free, open source PHP web application framework.', 10));
