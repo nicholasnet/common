@@ -4,6 +4,7 @@ Back to [index](../index.md)
 - [Introduction](#introduction)
     - [Creating Collections](#creating-collections)
 - [Available Methods](#available-methods)
+- [Higher Order Messages](#higher-order-messages)
 
 <a name="introduction"></a>
 ## Introduction
@@ -22,7 +23,7 @@ The `IdeasBucket\Common\Utils\Collection` class provides a fluent, convenient wr
 As you can see, the `Collection` class allows you to chain its methods to perform fluent mapping and reducing of the underlying array. In general, collections are immutable, meaning every `Collection` method returns an entirely new `Collection` instance.
 
 <a name="creating-collections"></a>
-### Creating Collections
+#### Creating Collections
 
 Creating a collection is as simple as:
 
@@ -58,10 +59,10 @@ For the remainder of this documentation, we'll discuss each method available on 
 | [sum](#method-sum)  | [take](#method-take)  | [toArray](#method-toarray)  |
 | [toJson](#method-tojson)  | [transform](#method-transform)  | [union](#method-union)  |
 | [unique](#method-unique)  | [values](#method-values)  | [where](#method-where)  |
-| [whereStrict](#method-wherestrict)  | [whereIn](#method-wherein)  | [whereInLoose](#method-whereinloose)  |
-| [zip](#method-zip) | |
+| [whereStrict](#method-wherestrict)  | [whereIn](#method-wherein)  | [zip](#method-zip)  |
 
-## Method Listing
+
+#### Method Listing
 
 <a name="method-all"></a>
 #### `all()`
@@ -825,7 +826,7 @@ The `put` method sets the given key and value in the collection:
 
 The `random` method returns a random item from the collection:
 
-    $collection = Collection::make([1, 2, 3, 4, 5]);
+    $collection = collect([1, 2, 3, 4, 5]);
 
     $collection->random();
 
@@ -1282,7 +1283,7 @@ The `values` method returns a new collection with the keys reset to consecutive 
 
 The `where` method filters the collection by a given key / value pair:
 
-    $collection = Collection::make([
+    $collection = collect([
         ['product' => 'Desk', 'price' => 200],
         ['product' => 'Chair', 'price' => 100],
         ['product' => 'Bookcase', 'price' => 150],
@@ -1303,7 +1304,7 @@ The `where` method filters the collection by a given key / value pair:
 The `where` method uses loose comparisons when checking item values. Use the [`whereStrict`](#method-wherestrict) method to filter using "strict" comparisons.
 
 <a name="method-wherestrict"></a>
-#### `whereStrict()`
+#### `whereStrict()` 
 
 This method has the same signature as the [`where`](#method-where) method; however, all values are compared using "strict" comparisons.
 
@@ -1312,7 +1313,7 @@ This method has the same signature as the [`where`](#method-where) method; howev
 
 The `whereIn` method filters the collection by a given key / value contained within the given array.
 
-    $collection = Collection::make([
+    $collection = collect([
         ['product' => 'Desk', 'price' => 200],
         ['product' => 'Chair', 'price' => 100],
         ['product' => 'Bookcase', 'price' => 150],
@@ -1330,13 +1331,12 @@ The `whereIn` method filters the collection by a given key / value contained wit
     ]
     */
 
-The `whereIn` method uses strict comparisons when checking item values. Use the [`whereInLoose`](#method-whereinloose) method to filter using "loose" comparisons.
+The `whereIn` method uses "loose" comparisons when checking item values. Use the [`whereInStrict`](#method-whereinstrict) method to filter using strict comparisons.
 
-<a name="method-whereinloose"></a>
-#### `whereInLoose()`
+<a name="method-whereinstrict"></a>
+#### `whereInStrict()` 
 
-This method has the same signature as the [`whereIn`](#method-wherein) method; however, all values are compared using "loose" comparisons.
-
+This method has the same signature as the [`whereIn`](#method-wherein) method; however, all values are compared using strict comparisons.
 <a name="method-zip"></a>
 #### `zip()`
 
@@ -1351,3 +1351,19 @@ The `zip` method merges together the values of the given array with the values o
     // [['Chair', 100], ['Desk', 200]]
 
    
+<a name="higher-order-messages"></a>
+## Higher Order Messages
+
+Collections also provide support for "higher order messages", which are short-cuts for performing common actions on collections. The collection methods that provide higher order messages are: `contains`, `each`, `every`, `filter`, `first`, `map`, `partition`, `reject`, `sortBy`, `sortByDesc`, and `sum`.
+
+Each higher order message can be accessed as a dynamic property on a collection instance. For instance, let's use the `each` higher order message to call a method on each object within a collection:
+
+    $users = User::where('votes', '>', 500)->get();
+
+    $users->each->markAsVip();
+
+Likewise, we can use the `sum` higher order message to gather the total number of "votes" for a collection of users:
+
+    $users = User::where('group', 'Development')->get();
+
+    return $users->sum->votes;
