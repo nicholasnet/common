@@ -120,16 +120,15 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             return;
         }
 
-        $values = (isset($key) ? $this->pluck($key) : $this)->sort()->values();
-
-        $middle = (int)($count / 2);
+        $values = $this->with(isset($key) ? $this->pluck($key) : $this)->sort()->values();
+        $middle = (int) ($count / 2);
 
         if ($count % 2) {
 
             return $values->get($middle);
         }
 
-        return (new static([$values->get($middle - 1), $values->get($middle),]))->average();
+        return (new static([$values->get($middle - 1), $values->get($middle)]))->average();
     }
 
     /**

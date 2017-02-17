@@ -6,6 +6,7 @@
   * [Encrypter](Utils/Encrypter.md)
   * [StringHelper](Utils/StringHelper.md)
   * [XmlToArray](Utils/XmlToArray.md)
+  * [ProcessManager](Utils/ProcessManager.md)
 * Twig
   * [Extension](Utils/Extension.md)
 * SwiftMailer
