@@ -9,7 +9,7 @@ Back to [index](../index.md)
 <a name="introduction"></a>
 ## Introduction
 
-#### This class is the inspired by Laravel Encryption package. You can find more information [here](https://laravel.com/docs/5.3/encryption).
+##### This class is the inspired by Laravel Encryption package. You can find more information [here](https://laravel.com/docs/5.3/encryption).
 
 <a name="configuration"></a>
 ## Configuration

@@ -6,7 +6,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is the copy of Laravel Support Arr package. You can find more information [here](https://laravel.com/docs/5.3/helpers#available-methods).
+##### This class is the copy of Laravel Support Arr package. You can find more information [here](https://laravel.com/docs/5.3/helpers#available-methods).
 ArrayHelper provides convenient methods to manipulate the array.
 
 <a name="available-methods"></a>

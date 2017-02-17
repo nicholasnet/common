@@ -6,7 +6,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is inspired by Laravel, CakePHP 3 and YII2 frameworks.
+##### This class is inspired by Laravel, CakePHP 3 and YII2 frameworks.
 
 <a name="available-methods"></a>
 ## Available Methods

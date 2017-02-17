@@ -8,7 +8,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is the copy of Laravel Collection package. You can find more information [here](https://laravel.com/docs/5.3/eloquent-collections).
+##### This class is the copy of Laravel Collection package. You can find more information [here](https://laravel.com/docs/5.3/eloquent-collections).
 
 The `IdeasBucket\Common\Utils\Collection` class provides a fluent, convenient wrapper for working with arrays of data. For example, check out the following code. We'll use the `collect` helper to create a new collection instance from the array, run the `strtoupper` function on each element, and then remove all empty elements:
 
@@ -60,6 +60,7 @@ For the remainder of this documentation, we'll discuss each method available on 
 | [toJson](#method-tojson)  | [transform](#method-transform)  | [union](#method-union)  |
 | [unique](#method-unique)  | [values](#method-values)  | [where](#method-where)  |
 | [whereStrict](#method-wherestrict)  | [whereIn](#method-wherein)  | [zip](#method-zip)  |
+| [nth](#method-nth)  | [partition](#method-partition)  |   |
 
 
 #### Method Listing
@@ -689,6 +690,16 @@ The `min` method returns the minimum value of a given key:
     $min = Collection::make([1, 2, 3, 4, 5])->min();
 
     // 1
+    
+    
+<a name="method-nth"></a>
+#### `nth()`
+
+The `nth` method creates a new collection consisting of every n-th element:
+
+    $result = Collection::make(['a', 'b', 'c', 'd', 'e', 'f'])->nth(4);
+
+    // ['a', 'e']    
 
 <a name="method-only"></a>
 #### `only()`
@@ -704,6 +715,19 @@ The `only` method returns the items in the collection with the specified keys:
     // ['product_id' => 1, 'name' => 'Desk']
 
 For the inverse of `only`, see the [except](#method-except) method.
+
+<a name="method-partition"></a>
+#### `partition()`
+
+The `partition` method may be combined with the `list` PHP function to separate elements that pass a given truth test from those that do not:
+
+    $collection = Collection::make([1, 2, 3, 4, 5, 6]);
+    
+    list($underThree, $aboveThree) = $collection->partition(function ($i) {
+    
+        return $i < 3;
+    });
+
 
 <a name="method-pipe"></a>
 #### `pipe()`
