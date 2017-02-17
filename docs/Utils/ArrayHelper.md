@@ -6,7 +6,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is the copy of Laravel Support Arr package. You can find more information [here](https://laravel.com/docs/5.3/helpers#available-methods).
+##### This class is the copy of Laravel Support Arr package. You can find more information [here](https://laravel.com/docs/5.3/helpers#available-methods).
 ArrayHelper provides convenient methods to manipulate the array.
 
 <a name="available-methods"></a>
@@ -32,6 +32,7 @@ ArrayHelper provides convenient methods to manipulate the array.
 * [where](#method-array-where)
 * [head](#method-head)
 * [last](#method-last)
+* [wrap](#method-wrap)
 
 <a name="method-array-add"></a>
 #### `add()`
@@ -320,3 +321,14 @@ The `last` function returns the last element in the given array:
     $last = ArrayHelper::last($array);
 
     // 300
+    
+<a name="method-lwrap"></a>
+#### `wrap()`
+
+The `wrap` function wraps the element in an array if it is not an array already:
+
+    $str = '2;
+
+    $result = ArrayHelper::wrap($str);
+
+    // ['2']    

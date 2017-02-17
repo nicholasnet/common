@@ -9,20 +9,16 @@ Back to [index](../index.md)
 <a name="introduction"></a>
 ## Introduction
 
-#### This class is the inspired by Laravel Encryption package. You can find more information [here](https://laravel.com/docs/5.3/encryption).
+##### This class is the inspired by Laravel Encryption package. You can find more information [here](https://laravel.com/docs/5.3/encryption).
 
 <a name="configuration"></a>
 ## Configuration
 
-Before using Encrypter, you must set a `key` option. Encrypter uses PHP's secure random bytes if available if not then it will fallback to OpenSSL if even that is not available then it will fallback to mt_rand **which is insecure so this option must be enable explicitly enabled during instantiation**.
+Before using Encrypter, you must set a `key` option.
     
     <?php
     
-    // Allow insecure random bytes if not using PHP >= 7 or does not have openssl_random_pseudo_byte.
-    $enctypter = new Encrypter($key, 'AES-128-CBC', true);
-    
-    // Disallow insecure random bytes if not using PHP >= 7 or does not have openssl_random_pseudo_byte.
-    $enctypter = new Encrypter($key); // Default behaviour
+    $enctypter = new Encrypter($key, 'AES-128-CBC');
     
 <a name="using-the-encrypter"></a>
 ## Using The Encrypter

@@ -300,6 +300,31 @@ class StringHelper
     }
 
     /**
+     * Generate a more truly "random" alpha-numeric string.
+     *
+     * Note: Adapted from Laravel Framework.
+     *
+     * @see https://github.com/laravel/framework/blob/5.4/LICENSE.md
+
+     * @param  int  $length
+     *
+     * @return string
+     */
+    public static function random($length = 16)
+    {
+        $string = '';
+
+        while (($len = strlen($string)) < $length) {
+
+            $size = $length - $len;
+            $bytes = random_bytes($size);
+            $string .= substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $size);
+        }
+
+        return $string;
+    }
+
+    /**
      * Generate a random UUID version 4.
      *
      * Warning: This method should not be used as a random seed for any cryptographic operations.

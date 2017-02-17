@@ -6,7 +6,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is inspired by work of [Lalit Lab](http://www.lalit.org/lab/convert-xml-to-array-in-php-xml2array/)
+##### This class is inspired by work of [Lalit Lab](http://www.lalit.org/lab/convert-xml-to-array-in-php-xml2array/)
 The `IdeasBucket\Common\Utils\ArrayToXml` class provides method that can convert array into XML.
 
 <a name="available-methods"></a>

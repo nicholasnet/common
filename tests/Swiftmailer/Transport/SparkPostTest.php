@@ -8,7 +8,7 @@ class SparkPostTest extends \PHPUnit_Framework_TestCase
 {
     public function testSend()
     {
-        $message = new TrackedMessage('Foo subject', 'Bar body');
+        $message = TrackedMessage::newInstance('Foo subject', 'Bar body');
         $message->setCampaignId('test');
         $message->setDescription('test');
         $message->setSender('myself@example.com');
