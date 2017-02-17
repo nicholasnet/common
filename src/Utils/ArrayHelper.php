@@ -605,4 +605,16 @@ class ArrayHelper
 
         return $target;
     }
+
+    /**
+     * If the given value is not an array, wrap it in one.
+     *
+     * @param  mixed  $value
+     *
+     * @return array
+     */
+    public static function wrap($value)
+    {
+        return ! is_array($value) ? [$value] : $value;
+    }
 }

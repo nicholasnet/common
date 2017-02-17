@@ -6,7 +6,7 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-#### This class is inspired by Laravel, CakePHP 3 and YII2 frameworks.
+##### This class is inspired by Laravel, CakePHP 3 and YII2 frameworks.
 
 <a name="available-methods"></a>
 ## Available Methods
@@ -18,6 +18,7 @@ Back to [index](../index.md)
 * [camelCase](#method-camelCase)
 * [studlyCase](#method-studlyCase)
 * [endsWith](#method-endsWith)
+* [random](#method-random)
 * [startsWith](#method-startsWith)
 * [uuid](#method-uuid)
 
@@ -101,8 +102,17 @@ The `startsWith` function determines if the given string begins with the given v
     $value = StringHelper::startsWith('This is my name', 'This');
 
     // true 
+    
+<a name="method-random"></a>
+#### `random()`
+
+The `random` function generates a random string of the specified length. This function uses PHP's random_bytes function:
+
+    $value = StringHelper::random(16);
+    
+**Added since version 1.1**    
        
-<a name="method-starts-with"></a>
+<a name="method-uuid"></a>
 #### `uuid()`
 
 The `uuid` generate unique identifiers as per **RFC 4122**. The UUID is a 128-bit string in the format of 485fc381-e790-47a3-9794-1337c0a8fe68: 
