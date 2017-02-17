@@ -1024,6 +1024,13 @@ class CollectionTest extends TestCase
         $this->assertEquals(['baz'], $cut->all());
     }
 
+    public function testGetWithDefaultValue()
+    {
+        $data = new Collection([1,2]);
+
+        $this->assertEquals('Test', $data->get(4, 'Test'));
+    }
+
     public function testGetPluckValueWithAccessors()
     {
         $model = new TestAccessorEloquentTestStub(['some' => 'foo']);
@@ -1045,6 +1052,14 @@ class CollectionTest extends TestCase
         $this->assertEquals(['first' => 'first-rolyat', 'last' => 'last-llewto'], $data->all());
     }
 
+    public function testBase()
+    {
+        $data = new Collection(['first' => 'taylor', 'last' => 'otwell']);
+        $base = $data->toBase();
+
+        $this->assertEquals($base->all(), $data->all());
+    }
+
     public function testFlatMap()
     {
         $data = new Collection([
@@ -1059,6 +1074,19 @@ class CollectionTest extends TestCase
         });
 
         $this->assertEquals(['programming', 'basketball', 'music', 'powerlifting'], $data->all());
+    }
+
+    public function testPut()
+    {
+        $data = new Collection([0,1,2,3,4,5,6]);
+        $data = $data->put(0, 10);
+        $this->assertEquals(10, $data->all()[0]);
+    }
+
+    public function testHas()
+    {
+        $data = new Collection([0,1,2,3,4,5,6]);
+        $this->assertTrue($data->has(0));
     }
 
     public function testMapWithKeys()
