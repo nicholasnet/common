@@ -49,6 +49,17 @@ class ProcessManagerTest extends TestCase
         return $stub;
     }
 
+    private function getStubbedCallback($timesExpectedToBeCalled)
+    {
+        $stubbedCallback = $this->getMockBuilder(\stdClass::class)
+                                ->setMethods(['__invoke'])
+                                ->getMock();
+
+        $stubbedCallback->expects($this->exactly($timesExpectedToBeCalled))->method('__invoke');
+
+        return $stubbedCallback;
+    }
+
     public function testThrowsLogicExceptionIfConcurrencyGetsChangedAfterRunProcess()
     {
         $this->expectException(\LogicException::class);
@@ -86,7 +97,11 @@ class ProcessManagerTest extends TestCase
     {
         $process1 = $this->getErrorProcess();
 
-        (new ProcessManager($process1))->setConcurrency(2)->run();
+        (new ProcessManager($process1, [
+
+            'error' => $this->getStubbedCallback(1)
+
+        ]))->setConcurrency(2)->run();
     }
 
     public function testProcessManagerAcceptsGenerators()
@@ -95,9 +110,13 @@ class ProcessManagerTest extends TestCase
 
             for ($i = 0; $i < $total; $i++) {
 
-                if ($i === 8) {
+                if ($i === 0) {
 
                     yield new \stdClass();
+
+                } elseif (($i === 2) || ($i === 9)) {
+
+                    yield $this->getErrorProcess();
 
                 } else {
 
@@ -106,6 +125,11 @@ class ProcessManagerTest extends TestCase
             }
         };
 
-        (new ProcessManager($requests(20)))->setConcurrency(10)->run();
+        (new ProcessManager($requests(20), [
+
+            'success' => $this->getStubbedCallback(17),
+            'error' => $this->getStubbedCallback(2)
+
+        ]))->setConcurrency(10)->run();
     }
 }
