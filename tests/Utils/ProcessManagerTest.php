@@ -79,28 +79,14 @@ class ProcessManagerTest extends TestCase
     {
         $process1 = $this->getSuccessProcess();
 
-        (new ProcessManager([$process1], [
-
-            'success' => function($response, $index) {
-
-
-            }
-
-        ]))->setConcurrency(2)->run();
+        (new ProcessManager([$process1]))->setConcurrency(2)->run();
     }
 
     public function testProcessManagerAcceptsProcessByItself()
     {
         $process1 = $this->getErrorProcess();
 
-        (new ProcessManager($process1, [
-
-            'error' => function($response, $index) {
-
-
-            }
-
-        ]))->setConcurrency(2)->run();
+        (new ProcessManager($process1))->setConcurrency(2)->run();
     }
 
     public function testProcessManagerAcceptsGenerators()
@@ -120,13 +106,6 @@ class ProcessManagerTest extends TestCase
             }
         };
 
-        (new ProcessManager($requests(20), [
-
-            'success' => function($response, $index) {
-
-
-            }
-
-        ]))->setConcurrency(10)->run();
+        (new ProcessManager($requests(20)))->setConcurrency(10)->run();
     }
 }
