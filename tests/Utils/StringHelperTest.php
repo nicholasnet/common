@@ -134,6 +134,23 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
+    public function testStrContains()
+    {
+        $this->assertTrue(StringHelper::contains('taylor', 'ylo'));
+        $this->assertTrue(StringHelper::contains('taylor', 'taylor'));
+        $this->assertTrue(StringHelper::contains('taylor', ['ylo']));
+        $this->assertTrue(StringHelper::contains('taylor', ['xxx', 'ylo']));
+        $this->assertFalse(StringHelper::contains('taylor', 'xxx'));
+        $this->assertFalse(StringHelper::contains('taylor', ['xxx']));
+        $this->assertFalse(StringHelper::contains('taylor', ''));
+    }
+
+    public function testParseCallback()
+    {
+        $this->assertEquals(['Class', 'method'], StringHelper::parseCallback('Class@method', 'foo'));
+        $this->assertEquals(['Class', 'foo'], StringHelper::parseCallback('Class', 'foo'));
+    }
+
     public function toAsciiProvider()
     {
         return [
