@@ -8,9 +8,9 @@ Back to [index](../index.md)
 
 <a name="introduction"></a>
 ## Introduction
-##### This class is the copy of Laravel Collection package. You can find more information [here](https://laravel.com/docs/5.3/eloquent-collections).
+##### This class is the copy of Laravel Collection package. You can find more information [here](https://laravel.com/docs/5.4/collections).
 
-The `IdeasBucket\Common\Utils\Collection` class provides a fluent, convenient wrapper for working with arrays of data. For example, check out the following code. We'll use the `collect` helper to create a new collection instance from the array, run the `strtoupper` function on each element, and then remove all empty elements:
+The `IdeasBucket\Common\Utils\Collection` class provides a fluent, convenient wrapper for working with arrays of data. For example, check out the following code. We'll use the `Collection::make` method to create a new collection instance from the array, run the `strtoupper` function on each element, and then remove all empty elements:
 
     $collection = Collection::make(['taylor', 'abigail', null])->map(function ($name) {
         return strtoupper($name);
@@ -1406,12 +1406,8 @@ Collections also provide support for "higher order messages", which are short-cu
 
 Each higher order message can be accessed as a dynamic property on a collection instance. For instance, let's use the `each` higher order message to call a method on each object within a collection:
 
-    $users = User::where('votes', '>', 500)->get();
+    $invoices->each->pay(); // Here invoices is collection of an object which have pay method.
 
-    $users->each->markAsVip();
+Likewise, we can use the `sum` higher order message to gather the total number of "amount" for a collection of invoice:
 
-Likewise, we can use the `sum` higher order message to gather the total number of "votes" for a collection of users:
-
-    $users = User::where('group', 'Development')->get();
-
-    return $users->sum->votes;
+    $invoices->sum->getTotal();
