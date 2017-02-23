@@ -64,6 +64,7 @@ For the remainder of this documentation, we'll discuss each method available on 
 | [whereStrict](#method-wherestrict) | [whereIn](#method-wherein) | [whereInStrict](#method-whereinstrict) | 
 | [zip](#method-zip) |  |  |
 
+
 #### Method Listing
 
 <a name="method-all"></a>
@@ -238,19 +239,13 @@ If you would like to stop iterating through the items, you may return `false` fr
 <a name="method-every"></a>
 #### `every()`
 
-The `every` method creates a new collection consisting of every n-th element:
+The `every` method may be used to verify that all elements of a collection pass a given truth test:
 
-    $collection = Collection::make(['a', 'b', 'c', 'd', 'e', 'f']);
+    Collection::make([1, 2, 3, 4])->every(function ($value, $key) {
+        return $value > 2;
+    });
 
-    $collection->every(4);
-
-    // ['a', 'e']
-
-You may optionally pass an offset as the second argument:
-
-    $collection->every(4, 1);
-
-    // ['b', 'f']
+    // false
 
 <a name="method-except"></a>
 #### `except()`
@@ -281,6 +276,14 @@ The `filter` method filters the collection using the given callback, keeping onl
     $filtered->all();
 
     // [3, 4]
+
+If no callback is supplied, all entries of the collection that are equivalent to `false` will be removed:
+
+    $collection = Collection::make([1, 2, 3, null, false, '', 0, []]);
+
+    $collection->filter()->all();
+
+    // [1, 2, 3]
 
 For the inverse of `filter`, see the [reject](#method-reject) method.
 
@@ -479,9 +482,9 @@ The `has` method determines if a given key exists in the collection:
 
     $collection = Collection::make(['account_id' => 1, 'product' => 'Desk']);
 
-    $collection->has('email');
+    $collection->has('product');
 
-    // false
+    // true
 
 <a name="method-implode"></a>
 #### `implode()`
@@ -691,16 +694,23 @@ The `min` method returns the minimum value of a given key:
     $min = Collection::make([1, 2, 3, 4, 5])->min();
 
     // 1
-    
-    
+
 <a name="method-nth"></a>
 #### `nth()`
 
 The `nth` method creates a new collection consisting of every n-th element:
 
-    $result = Collection::make(['a', 'b', 'c', 'd', 'e', 'f'])->nth(4);
+    $collection = Collection::make(['a', 'b', 'c', 'd', 'e', 'f']);
 
-    // ['a', 'e']    
+    $collection->nth(4);
+
+    // ['a', 'e']
+
+You may optionally pass an offset as the second argument:
+
+    $collection->nth(4, 1);
+
+    // ['b', 'f']
 
 <a name="method-only"></a>
 #### `only()`
@@ -723,12 +733,10 @@ For the inverse of `only`, see the [except](#method-except) method.
 The `partition` method may be combined with the `list` PHP function to separate elements that pass a given truth test from those that do not:
 
     $collection = Collection::make([1, 2, 3, 4, 5, 6]);
-    
+
     list($underThree, $aboveThree) = $collection->partition(function ($i) {
-    
         return $i < 3;
     });
-
 
 <a name="method-pipe"></a>
 #### `pipe()`
@@ -797,13 +805,13 @@ The `prepend` method adds an item to the beginning of the collection:
 
 You may also pass a second argument to set the key of the prepended item:
 
-    $collection = Collection::make(['one' => 1, 'two', => 2]);
+    $collection = Collection::make(['one' => 1, 'two' => 2]);
 
     $collection->prepend(0, 'zero');
 
     $collection->all();
 
-    // ['zero' => 0, 'one' => 1, 'two', => 2]
+    // ['zero' => 0, 'one' => 1, 'two' => 2]
 
 <a name="method-pull"></a>
 #### `pull()`
@@ -851,13 +859,13 @@ The `put` method sets the given key and value in the collection:
 
 The `random` method returns a random item from the collection:
 
-    $collection = collect([1, 2, 3, 4, 5]);
+    $collection = Collection::make([1, 2, 3, 4, 5]);
 
     $collection->random();
 
     // 4 - (retrieved randomly)
 
-You may optionally pass an integer to `random` to specify how many items you would like to randomly retrieve. If that integer is more than `1`, a collection of items is returned:
+You may optionally pass an integer to `random` to specify how many items you would like to randomly retrieve. A collection of items is always returned when explicitly passing the number of items you wish to receive:
 
     $random = $collection->random(3);
 
@@ -1005,7 +1013,7 @@ The `sort` method sorts the collection. The sorted collection keeps the original
 
     // [1, 2, 3, 4, 5]
 
-If your sorting needs are more advanced, you may pass a callback to `sort` with your own algorithm. Refer to the PHP documentation on [`usort`](http://php.net/manual/en/function.usort.php#refsect1-function.usort-parameters), which is what the collection's `sort` method calls under the hood.
+If your sorting needs are more advanced, you may pass a callback to `sort` with your own algorithm. Refer to the PHP documentation on [`usort`](https://secure.php.net/manual/en/function.usort.php#refsect1-function.usort-parameters), which is what the collection's `sort` method calls under the hood.
 
 > {tip} If you need to sort a collection of nested arrays or objects, see the [`sortBy`](#method-sortby) and [`sortByDesc`](#method-sortbydesc) methods.
 
@@ -1177,7 +1185,7 @@ You may also pass a negative integer to take the specified amount of items from 
 <a name="method-toarray"></a>
 #### `toArray()`
 
-The `toArray` method converts the collection into a plain PHP `array`:
+The `toArray` method converts the collection into a plain PHP `array`.
 
     $collection = Collection::make(['name' => 'Desk', 'price' => 200]);
 
@@ -1230,7 +1238,7 @@ The `union` method adds the given array to the collection. If the given array co
 
     $union->all();
 
-    // [1 => ['a'], 2 => ['b'], [3 => ['c']]
+    // [1 => ['a'], 2 => ['b'], 3 => ['c']]
 
 <a name="method-unique"></a>
 #### `unique()`
@@ -1303,12 +1311,27 @@ The `values` method returns a new collection with the keys reset to consecutive 
             1 => ['product' => 'Desk', 'price' => 200],
         ]
     */
+<a name="method-when"></a>
+#### `when()`
+
+The `when` method will execute the given callback when the first argument given to the method evaluates to `true`:
+
+    $collection = Collection::make([1, 2, 3]);
+
+    $collection->when(true, function ($collection) {
+        return $collection->push(4);
+    });
+
+    $collection->all();
+
+    // [1, 2, 3, 4]
+
 <a name="method-where"></a>
 #### `where()`
 
 The `where` method filters the collection by a given key / value pair:
 
-    $collection = collect([
+    $collection = Collection::make([
         ['product' => 'Desk', 'price' => 200],
         ['product' => 'Chair', 'price' => 100],
         ['product' => 'Bookcase', 'price' => 150],
@@ -1329,7 +1352,7 @@ The `where` method filters the collection by a given key / value pair:
 The `where` method uses loose comparisons when checking item values. Use the [`whereStrict`](#method-wherestrict) method to filter using "strict" comparisons.
 
 <a name="method-wherestrict"></a>
-#### `whereStrict()` 
+#### `whereStrict()`
 
 This method has the same signature as the [`where`](#method-where) method; however, all values are compared using "strict" comparisons.
 
@@ -1338,7 +1361,7 @@ This method has the same signature as the [`where`](#method-where) method; howev
 
 The `whereIn` method filters the collection by a given key / value contained within the given array.
 
-    $collection = collect([
+    $collection = Collection::make([
         ['product' => 'Desk', 'price' => 200],
         ['product' => 'Chair', 'price' => 100],
         ['product' => 'Bookcase', 'price' => 150],
@@ -1359,9 +1382,10 @@ The `whereIn` method filters the collection by a given key / value contained wit
 The `whereIn` method uses "loose" comparisons when checking item values. Use the [`whereInStrict`](#method-whereinstrict) method to filter using strict comparisons.
 
 <a name="method-whereinstrict"></a>
-#### `whereInStrict()` 
+#### `whereInStrict()`
 
 This method has the same signature as the [`whereIn`](#method-wherein) method; however, all values are compared using strict comparisons.
+
 <a name="method-zip"></a>
 #### `zip()`
 
@@ -1375,7 +1399,6 @@ The `zip` method merges together the values of the given array with the values o
 
     // [['Chair', 100], ['Desk', 200]]
 
-   
 <a name="higher-order-messages"></a>
 ## Higher Order Messages
 
