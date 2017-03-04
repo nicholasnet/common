@@ -9,7 +9,7 @@
     "source": "https://github.com/nicholasnet/common"
   },
   "require": {
-    "php": ">=5.5.0",
+    "php": ">=5.6.0",
     "ext-mbstring": "*",
     "ext-openssl": "*",
     "paragonie/random_compat": "~1.4|~2.0"
