@@ -12,11 +12,11 @@ We simply copied those awesome packages and put in this package so that we can u
  
 There is no external library dependency to run this package except random_bytes polyfill that is used if you are using PHP < v7.
 
-##Installation
+## Installation
 ### Via Composer
 `composer require 'ideasbucket/common'`
 
-###Direct download
+### Direct download
 _To download specific version please browse [releases](https://github.com/nicholasnet/common/releases)._
 
 ---
