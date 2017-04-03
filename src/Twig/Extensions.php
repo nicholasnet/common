@@ -19,6 +19,7 @@ class Extensions extends \Twig_Extension
             new Twig_SimpleFilter('bin2hex', [$this, 'bin2hexFilter']),
             new Twig_SimpleFilter('slug', [$this, 'slugFilter']),
             new Twig_SimpleFilter('md5', [$this, 'md5Filter']),
+            new Twig_SimpleFilter('hash', [$this, 'hashFilter']),
         ];
     }
 
@@ -29,7 +30,7 @@ class Extensions extends \Twig_Extension
      */
     public function md5Filter($string)
     {
-        return md5($string);
+        return $this->hashFilter($string);
     }
 
     /**
@@ -42,6 +43,17 @@ class Extensions extends \Twig_Extension
     public function slugFilter($string, $convertCase = true, $separator = '-')
     {
         return StringHelper::slug($string, $convertCase, $separator);
+    }
+
+    /**
+     * @param string $string
+     * @param string $algo
+     *
+     * @return string
+     */
+    public function hashFilter($string, $algo = 'md5')
+    {
+        return hash($algo, $string);
     }
 
     /**

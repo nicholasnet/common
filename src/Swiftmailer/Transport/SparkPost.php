@@ -54,20 +54,24 @@ class SparkPost extends AbstractTransport
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
         $this->beforeSendPerformed($message);
-
         $recipients = $this->getRecipients($message);
-
         $message->setBcc([]);
 
         $options = [
-                       'headers' => ['Authorization' => $this->key],
-                       'json' => ['recipients' => $recipients, 'content' => ['email_rfc822' => $message->toString()]]
+                        'headers' => [
+                            'Authorization' => $this->key
+                        ],
+                        'json' => [
+                            'recipients' => $recipients,
+                            'content' => [
+                                'email_rfc822' => $message->toString()
+                            ]
+                        ]
                    ];
 
         if ($this->options) {
 
             $options['json']['options'] = $this->options;
-
         }
 
         if ($message instanceof TrackedMessage) {
@@ -78,18 +82,20 @@ class SparkPost extends AbstractTransport
             if (! empty($campaignId)) {
 
                 $options['json']['campaign_id'] = $campaignId;
-
             }
 
             if (! empty($description)) {
 
                 $options['json']['description'] = $description;
-
             }
         }
 
 
-        $this->client->post('https://api.sparkpost.com/api/v1/transmissions', $options);
+        $response = $this->client->post('https://api.sparkpost.com/api/v1/transmissions', $options);
+
+        $message->getHeaders()->addTextHeader(
+            'X-SparkPost-Transmission-ID', $this->getTransmissionId($response)
+        );
 
         $this->sendPerformed($message);
 
@@ -111,19 +117,16 @@ class SparkPost extends AbstractTransport
         if ($message->getTo()) {
 
             $to = array_merge($to, array_keys($message->getTo()));
-
         }
 
         if ($message->getCc()) {
 
             $to = array_merge($to, array_keys($message->getCc()));
-
         }
 
         if ($message->getBcc()) {
 
             $to = array_merge($to, array_keys($message->getBcc()));
-
         }
 
         $recipients = array_map(function ($address) {
@@ -177,5 +180,44 @@ class SparkPost extends AbstractTransport
     public function setOptions(array $options)
     {
         return $this->options = $options;
+    }
+
+    /**
+     * Get the transmission ID from the response.
+     *
+     * @param \GuzzleHttp\Psr7\Response $response
+     *
+     * @return string
+     */
+    protected function getTransmissionId($response)
+    {
+        return $this->objectGet(json_decode($response->getBody()->getContents()), 'results.id');
+    }
+
+    /**
+     * @param      $object
+     * @param      $key
+     * @param null $default
+     *
+     * @return mixed|null
+     */
+    private function objectGet($object, $key, $default = null)
+    {
+        if (is_null($key) || trim($key) == '') {
+
+            return $object;
+        }
+
+        foreach (explode('.', $key) as $segment) {
+
+            if (! is_object($object) || ! isset($object->{$segment})) {
+
+                return ($default instanceof \Closure ? $default() : $default);
+            }
+
+            $object = $object->{$segment};
+        }
+
+        return $object;
     }
 }

@@ -7,6 +7,9 @@
 {{ test2|slug(false, '_') }}
 {{ test1|md5 }}
 {{ test3|slug }}
+{{ test1|hash('md5') }}
+{{ test2|hash('sha1') }}
+
 --DATA--
 return array('test' => 'test', 'test1' => 'veryveryveryveryveryveryveryverylongstring', 'test2' => 'Hello World', 'test3' => 'T$34gdfg34$$%^')
 --EXPECT--
@@ -16,3 +19,5 @@ hello-world
 Hello_World
 b019b90f247074d7ba8655f6718e99b4
 t34gdfg34
+b019b90f247074d7ba8655f6718e99b4
+0a4d55a8d778e5022fab701977c5d840bbc486d0

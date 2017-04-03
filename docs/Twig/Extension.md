@@ -21,6 +21,7 @@ This Twig extension provides several filters that can be used in Twig template.
 - [bin2hex](#bin2hex)
 - [slug](#slug)
 - [md5](#md5)    
+- [hash](#hash) 
     
 <a name="bin2hex"></a>
 ### bin2hex
@@ -54,3 +55,12 @@ Returns md5 hash of a input
     // Outputs
     b10a8db164e0754105b7a99be72e3fe5
     
+<a name="hash"></a>
+### hash
+Returns hash of a input  
+    
+    Usage {{ Hello World|hash('sha1') }}
+    
+    // Outputs
+    0a4d55a8d778e5022fab701977c5d840bbc486d0
+You can choose any algorithm that are compatible with native PHP `hash` function.     

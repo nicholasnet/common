@@ -20,9 +20,9 @@ class SparkPostTest extends \PHPUnit_Framework_TestCase
         $message->setBcc('me@example.com');
 
         $client = $this->getMockBuilder('GuzzleHttp\ClientInterface')
-            ->setMethods(['send', 'sendAsync', 'request', 'requestAsync', 'getConfig', 'post'])
-            ->disableOriginalConstructor()
-            ->getMock();
+                       ->setMethods(['send', 'sendAsync', 'request', 'requestAsync', 'getConfig', 'post'])
+                       ->disableOriginalConstructor()
+                       ->getMock();
 
         $transport = new SparkPost($client, 'test');
 
@@ -44,7 +44,8 @@ class SparkPostTest extends \PHPUnit_Framework_TestCase
                         'campaign_id' => 'test',
                         'description' => 'test',
                     ],
-                ]));
+                ]))
+                ->willReturn(new FakeResponse);
 
         $transport->send($message);
     }
@@ -63,5 +64,19 @@ class SparkPostTest extends \PHPUnit_Framework_TestCase
         $transport = new SparkPost($client, 'test');
         $transport->setKey('another');
         $this->assertEquals('another', $transport->getKey());
+    }
+}
+
+
+class FakeResponse
+{
+    public function getBody()
+    {
+        return $this;
+    }
+
+    public function getContents()
+    {
+        return null;
     }
 }

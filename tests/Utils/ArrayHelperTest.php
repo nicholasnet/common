@@ -506,4 +506,15 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
         ArrayHelper::forget($array, ['emails.joe@example.com', 'emails.jane@localhost']);
         $this->assertEquals(['emails' => ['joe@example.com' => ['name' => 'Joe']]], $array);
     }
+
+    public function testWrap()
+    {
+        $string = 'a';
+        $array = ['a'];
+        $object = new \stdClass;
+        $object->value = 'a';
+        $this->assertEquals(['a'], ArrayHelper::wrap($string));
+        $this->assertEquals($array, ArrayHelper::wrap($array));
+        $this->assertEquals([$object], ArrayHelper::wrap($object));
+    }
 }

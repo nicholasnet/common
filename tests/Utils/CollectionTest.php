@@ -2021,6 +2021,22 @@ class CollectionTest extends TestCase
         $this->assertSame([1, 2, 3], $collection->toArray());
     }
 
+    public function testTimesMethod()
+    {
+        $two = Collection::times(2, function ($number) {
+            return 'slug-'.$number;
+        });
+        $zero = Collection::times(0, function ($number) {
+            return 'slug-'.$number;
+        });
+        $negative = Collection::times(-4, function ($number) {
+            return 'slug-'.$number;
+        });
+        $this->assertEquals(['slug-1', 'slug-2'], $two->all());
+        $this->assertTrue($zero->isEmpty());
+        $this->assertTrue($negative->isEmpty());
+    }
+
     public function testWhen()
     {
         $collection = new Collection(['michael', 'tom']);

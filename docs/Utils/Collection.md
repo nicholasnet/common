@@ -59,10 +59,10 @@ For the remainder of this documentation, we'll discuss each method available on 
 | [sort](#method-sort) | [sortBy](#method-sortby) | [sortByDesc](#method-sortbydesc) | 
 | [splice](#method-splice) | [split](#method-split) | [sum](#method-sum) | 
 | [take](#method-take) | [toArray](#method-toarray) | [toJson](#method-tojson) | 
-| [transform](#method-transform) | [union](#method-union) | [unique](#method-unique) | 
-| [values](#method-values) | [when](#method-when) | [where](#method-where) | 
-| [whereStrict](#method-wherestrict) | [whereIn](#method-wherein) | [whereInStrict](#method-whereinstrict) | 
-| [zip](#method-zip) |  |  |
+| [tap](#method-tap) | [times](#method-times) | [transform](#method-transform) | 
+| [union](#method-union) | [unique](#method-unique) | [values](#method-values) | 
+| [when](#method-when) | [where](#method-where) | [whereStrict](#method-wherestrict) | 
+| [whereIn](#method-wherein) | [whereInStrict](#method-whereinstrict) | [zip](#method-zip) |
 
 
 #### Method Listing
@@ -1181,6 +1181,34 @@ You may also pass a negative integer to take the specified amount of items from 
     $chunk->all();
 
     // [4, 5]
+
+<a name="method-tap"></a>
+#### `tap()`
+
+The `tap` method passes the collection to the given callback, allowing you to "tap" into the collection at a specific point and do something with the items while not affecting the collection itself:
+
+    Collection::make([2, 4, 3, 1, 5])
+        ->sort()
+        ->tap(function ($collection) {
+        
+            print('Values after sorting', $collection->values()->toArray());
+        })
+        ->shift();
+
+    // 1
+
+<a name="method-times"></a>
+#### `times()`
+
+The static `times` method creates a new collection by invoking the callback a given amount of times:
+
+    $collection = Collection::times(10, function ($number) {
+        return $number * 9;
+    });
+
+    $collection->all();
+
+    // [9, 18, 27, 36, 45, 54, 63, 72, 81, 90]
 
 <a name="method-toarray"></a>
 #### `toArray()`
