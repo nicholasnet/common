@@ -51,7 +51,7 @@ class ProcessManager
      * @param mixed $processes
      * @param array $opts
      */
-    public function __construct($processes, array $opts)
+    public function __construct($processes, array $opts = [])
     {
         $this->processes = $this->getIterator($processes);
         $this->onSuccess = (isset($opts['success']) && is_callable($opts['success'])) ? $opts['success'] : $this->getNoOp();

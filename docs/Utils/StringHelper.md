@@ -10,14 +10,16 @@ Back to [index](../index.md)
 
 <a name="available-methods"></a>
 ## Available Methods
-* [ascii](#ascii)
-* [classBasename](#class-basename)
+* [ascii](#method-ascii)
+* [classBasename](#method-class-basename)
+* [contains](#method-contains)
 * [slug](#method-slug)
 * [truncate](#method-truncate)
 * [ordinalize](#method-ordinalize)
 * [camelCase](#method-camelCase)
 * [studlyCase](#method-studlyCase)
 * [endsWith](#method-endsWith)
+* [parseCallback](#method-parseCallback)
 * [random](#method-random)
 * [startsWith](#method-startsWith)
 * [uuid](#method-uuid)
@@ -40,6 +42,21 @@ The `classBasename` returns the class name of the given class with the class' na
     $class = StringHelper::classBasename('Foo\Bar\Baz');
 
     // Baz
+    
+<a name="method-contains"></a>
+#### `contains()`
+
+The `contains` function determines if the given string contains the given value:
+
+    $value = StringHelper::contains('This is my name', 'my');
+
+    // true
+
+You may also pass an array of values to determine if the given string contains any of the values:
+
+    $value = StringHelper::contains('This is my name', ['my', 'foo']);
+
+    // true
     
 <a name="method-slug"></a>
 #### `slug()`
